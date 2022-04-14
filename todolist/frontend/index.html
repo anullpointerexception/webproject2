@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppointmentFinder - Set & Manage appointments with ease!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- stylesheet for homepage -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="app.js"></script>
+    <!-- js used for animations -->
+    <link rel="stylesheet" href="css/style-home.css" type="text/css">
+</head>
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">The Only Bootstrap Page</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Four Icons</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#portfolio">Bullshit</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Call Me</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1>Your current appointments</h1>
+                <hr>
+                <div class="content">
+                    <div class="grid">
+        
+                    </div>
+                    <table width="100%">
+                        <thead class="calendar-top"> 
+                            <th class="calendar-item">
+                                Algorithmen & Datenstrukturen
+                            </th>
+                            <th>
+                                A.I. & Data Science
+                            </th>
+                            <th>
+                                Web Technologies
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr class="calendar-widgets">
+                                <td class="calendar-widget open" id="1">
+                                    <!-- onclick event für den jeweiligen Termin -->
+                                    Datum: 8.3.2022
+                                    <br>
+                                    Begin: 8:00 
+                                    <br>
+                                    Ende: 10:00
+                                </td>
+                                <td class="calendar-widget open" id="2">
+                                    Datum: 8.3.2022
+                                    <br>
+                                    Begin: 8:00 
+                                    <br>
+                                    Ende: 10:00
+                                </td>
+                                <td class="calendar-widget open" id="3">
+                                    Datum: 8.3.2022
+                                    <br>
+                                    Begin: 8:00 
+                                    <br>
+                                    Ende: 10:00 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <p>Click on any appointment to view it's details.</p>
+                    <a href="#create" class="btn btn-primary btn-xl page-scroll">New appointment? <i class="fa-solid fa-arrow-down"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <section class="filler" id="create">
+        <div class="container">
+            <div class="row">
+                <div class="text-center">
+                    <h2 class="section-heading">Create a new appointment</h2>
+                    <hr class="light">
+                    <p class="text-faded">You want to create a new appointment and enable voting for different time slots? Just press the create button to create a new appointment.</p>
+                    <button type="button" id="createAppoint" class="btn btn-default btn-xl"><i class="fa-solid fa-plus"></i> CREATE NEW APPOINTMENT</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- modal for appointment creation -->
+
+    <div class="modal fade" id="appointmentModal" tabindex="-1" role="dialog" aria-labelledby="appointmentModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form method="post" id="appointmentPost" action="#">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="appointmentModalLongTitle">&Uuml;bersicht des Termins</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="button" class="btn btn-primary">Termin absenden</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <!-- end modal -->
+    <!-- create Modal -->
+    <div class="modal fade" id="appointmentCreateModal" tabindex="-1" role="dialog" aria-labelledby="appointmentCreateModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form method="post" id="appointmentCreate" action="#">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="appointmentCreateModalLongTitle">&Uuml;bersicht des Termins</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="button" class="btn btn-primary">Termin absenden</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <!-- end create modal -->
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading primary">Why should you prefer AppointmentFinder?</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-solid fa-pager icon-color" data-wow-delay=".1s"></i>
+                        <h3>Fancy & Simple</h3>
+                        <p class="text-muted">We offer a simple UI to maximize the user experience. <br>Appointment creation has never been easier!</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-solid fa-rocket wow bounceIn icon-color" data-wow-delay=".1s"></i>
+                        <h3>Fast like a Rocketship</h3>
+                        <p class="text-muted">This webpage is not only fancy, but also extremely responsive and fast!</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-solid fa-comments wow bounceIn icon-color" data-wow-delay=".2s"></i>
+                        <h3>Constant development</h3>
+                        <p class="text-muted">Our website lives from customer feedback. If you have any problems, please report it. Only then can the website be constantly improved.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-heart wow bounceIn icon-color" data-wow-delay=".3s"></i>
+                        <h3>Made with Love</h3>
+                        <p class="text-muted">Our developers have invested a lot of time to optimize the user experience. Design and ease of management were the main focus.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="no-padding" id="portfolio">
+        <div class="container-fluid">
+            <div class="row no-gutter">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="portfolio-box">
+                        <img src="src/image_preview_1.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Simple UI
+                                </div>
+                                <div class="project-name">
+                                    An elegant UI that provides a good overview for your appointments.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="portfolio-box">
+                        <img src="src/image_preview_1.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Simple appointment creation
+                                </div>
+                                <div class="project-name">
+                                    Create appointments using the simple form. 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="portfolio-box">
+                        <img src="src/image_preview_1.jpg" class="img-responsive" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Voting
+                                </div>
+                                <div class="project-name">
+                                    Let users find a suitable date via voting.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+    <aside class="bg-dark">
+        <div class="container text-center">
+            <div class="call-to-action">
+                <h2>Are now convinced? Then let's get started right away!</h2>
+                <a href="#create" class="btn btn-default btn-xl page-scroll">Let's go!</a>
+            </div>
+        </div>
+    </aside>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">About AppointmentFinder</h2>
+                    <hr class="primary line-down">
+                    <p>Our goal is to make appointment management easier. With our tool you have the possibility to create new appointments easily and conveniently and then distribute them to users via voting. Appointment management has never been easier!</p>
+                
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 text-center">
+                    <i class="fa fa-calendar-check fa-6x wow bounceIn"></i>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <script>
+        $(document).ready(function(){
+            $('.calendar-widget').click(function(){
+                $('#appointmentModal').modal('show');   
+            })
+            $('#createAppoint').click(function(){
+                $('#appointmentCreateModal').modal('show');   
+            })
+        });
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js" integrity="sha512-xq+0+dRhI6SZOh+lDnMJEju2p2YPINflJLcYrRAsIMaXnJi6/V3lppCMCYsB2MLeF2E93r+fVo0MioY90pNzpw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.2.0/jquery.fittext.js" integrity="sha512-y1yfXWvbXggos1g8bZhtprle9WdjkQtWrklZQkTpsgQxg+b5gdeljJ+I6iskDq3w55rnd1x6a6W+xHwAZuz1oQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js" integrity="sha512-Rd5Gf5A6chsunOJte+gKWyECMqkG8MgBYD1u80LOOJBfl6ka9CtatRrD4P0P5Q5V/z/ecvOCSYC8tLoWNrCpPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

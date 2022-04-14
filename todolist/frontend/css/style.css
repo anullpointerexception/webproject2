@@ -1,0 +1,54 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+}
+html, body { 
+    height: 100%; width: 100%; margin: 0; 
+}
+
+
+
+.calendar-top {
+    background-color: #B56CD5;
+    height: 5vh;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.calendar-item {
+    width: 14.2857%;
+    text-align: center;
+}
+.calendar-widget {
+    width: 14.2857%;
+    text-align: center;
+}
+
+/** nesting calendar widget classes **/
+.calendar-widget.open{
+    background-color: #A0FD9C;
+}
+.calendar-widget.closed{
+    background-color: #FD9C9C;
+}
+
+.calendar-widgets {
+    height: 8vh;
+    text-align: center;
+}
+
+.topbar-right {
+    padding-top: 1%;
+    float: right;
+}
+.topbar-left {
+    float: left;
+}

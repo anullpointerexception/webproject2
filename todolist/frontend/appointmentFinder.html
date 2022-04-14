@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="app.js"></script>
+</head>
+<body>    
+    <div class="container-fluid">
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td class="topbar-left">
+                        <span>
+                            <h2>M&auml;rz 2022</h2>
+                        </span>
+                    </td>
+                    <td class="topbar-right">
+                        <span>
+                            <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        </span>
+                        <span>
+                            today
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="content">
+            <div class="grid">
+
+            </div>
+            <table width="100%">
+                <thead class="calendar-top"> 
+                    <th class="calendar-item">
+                        Monday
+                    </th>
+                    <th>
+                        Tuesday
+                    </th>
+                    <th>
+                        Wednesday
+                    </th>
+                    <th>
+                        Thursday
+                    </th>
+                    <th>
+                        Friday
+                    </th>
+                    <th>
+                        Saturday
+                    </th>
+                    <th>
+                        Sunday
+                    </th>
+                </thead>
+                <tbody>
+                    <tr class="calendar-widgets">
+                        <td class="calendar-widget open" id="1">
+                            <!-- onclick event für den jeweiligen Termin -->
+                            8:00 - 10:00
+                        </td>
+                        <td class="calendar-widget open" id="2">
+                            8:00 - 10:00
+                        </td>
+                    </tr>
+                    <tr class="calendar-widgets">
+                        <td class="calendar-widget open" id="3">
+                            10:00 - 12:00
+                        </td>
+                    </tr>
+                    <tr class="calendar-widgets">
+                        <td class="calendar-widget open" id="4">
+                            12:00 - 14:00
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+  
+            <div class="modal fade" id="appointmentModal" tabindex="-1" role="dialog" aria-labelledby="appointmentModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <form method="post" id="appointmentPost" action="#">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="appointmentModalLongTitle">&Uuml;bersicht des Termins</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                            <button type="button" class="btn btn-primary">Termin absenden</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+$(document).ready(function(){
+    $('.calendar-widget').click(function(){
+        $('#appointmentModal').modal('show');   
+    })
+});
+</script>
+
+</body>
+</html>
