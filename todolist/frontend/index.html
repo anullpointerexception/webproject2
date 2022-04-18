@@ -57,58 +57,176 @@
                 <h1>Your current appointments</h1>
                 <hr>
                 <div class="content">
-                    <div class="grid">
+                    <div id="carAppointControls" class="carousel slide" data-ride="carousel">
+
+                    
+                        <div class="grid">
         
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <table width="100%">
+                                    <thead class="calendar-top"> 
+                                        <th class="calendar-item">
+                                            Algorithmen & Datenstrukturen
+                                        </th>
+                                        <th>
+                                            A.I. & Data Science
+                                        </th>
+                                        <th>
+                                            Web Technologies
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="calendar-widgets">
+                                            <td class="calendar-widget open" id="1">
+                                                <!-- onclick event für den jeweiligen Termin -->
+                                                Datum: 8.3.2022
+                                                <br>
+                                                Begin: 8:00 
+                                                <br>
+                                                Ende: 10:00
+                                            </td>
+                                            <td class="calendar-widget open" id="2">
+                                                Datum: 8.3.2022
+                                                <br>
+                                                Begin: 8:00 
+                                                <br>
+                                                Ende: 10:00
+                                            </td>
+                                            <td class="calendar-widget open" id="3">
+                                                Datum: 8.3.2022
+                                                <br>
+                                                Begin: 8:00 
+                                                <br>
+                                                Ende: 10:00 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="carousel-item">
+                                <table width="100%">
+                                    <thead class="calendar-top"> 
+                                        <th class="calendar-item">
+                                            Agiles Projektmanagement
+                                        </th>
+                                        <th>
+                                            Prozeduale Sprachen
+                                        </th>
+                                        <th>
+                                            Web Technologies
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="calendar-widgets">
+                                            <td class="calendar-widget closed" id="1">
+                                                <!-- onclick event für den jeweiligen Termin -->
+                                                Datum: 8.3.2022
+                                                <br>
+                                                Begin: 8:00 
+                                                <br>
+                                                Ende: 10:00
+                                            </td>
+                                            <td class="calendar-widget open" id="2">
+                                                Datum: 8.3.2022
+                                                <br>
+                                                Begin: 8:00 
+                                                <br>
+                                                Ende: 10:00
+                                            </td>
+                                            <td class="calendar-widget closed" id="3">
+                                                Datum: 8.3.2022
+                                                <br>
+                                                Begin: 8:00 
+                                                <br>
+                                                Ende: 10:00 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carAppointControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                          <a class="carousel-control-next" href="#carAppointControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                          </a>
                     </div>
-                    <table width="100%">
-                        <thead class="calendar-top"> 
-                            <th class="calendar-item">
-                                Algorithmen & Datenstrukturen
-                            </th>
-                            <th>
-                                A.I. & Data Science
-                            </th>
-                            <th>
-                                Web Technologies
-                            </th>
-                        </thead>
-                        <tbody>
-                            <tr class="calendar-widgets">
-                                <td class="calendar-widget open" id="1">
-                                    <!-- onclick event für den jeweiligen Termin -->
-                                    Datum: 8.3.2022
-                                    <br>
-                                    Begin: 8:00 
-                                    <br>
-                                    Ende: 10:00
-                                </td>
-                                <td class="calendar-widget open" id="2">
-                                    Datum: 8.3.2022
-                                    <br>
-                                    Begin: 8:00 
-                                    <br>
-                                    Ende: 10:00
-                                </td>
-                                <td class="calendar-widget open" id="3">
-                                    Datum: 8.3.2022
-                                    <br>
-                                    Begin: 8:00 
-                                    <br>
-                                    Ende: 10:00 
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    <p>Click on any appointment to view it's details.</p>
-                    <a href="#create" class="btn btn-primary btn-xl page-scroll">New appointment? <i class="fa-solid fa-arrow-down"></i></a>
+                </div>
+                <br>
+                <p>Click on any appointment to view it's details.</p>
+                <a href="#create" class="btn btn-primary btn-xl page-scroll">New appointment? <i class="fa-solid fa-arrow-down"></i></a>
             </div>
         </div>
     </header>
+    <section class="filler" id="create">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="text-center">
+                    <h2 class="section-heading">Appointment Title</h2>
+                    <hr class="light">
+                    <p class="text-faded">(Name) has invited you to choose the best times for this meeting.</p>
+                    <br>
+
+                    <hr class="light">
+                    <h5 class="section-heading">Appointment Details</h5>
+                    
+                    <p class="text-faded"><i class="fa-solid fa-clock"></i> 1 Hour</p>
+                    <p class="text-faded"><i class="fa-solid fa-location-pin"></i></i> Demo City</p>
+                    <p class="text-faded"><i class="fa-solid fa-globe"></i> Europe/Vienna (GMT+2:00)</p>
+                    <p class="text-faded"><i class="fa-solid fa-diamond"></i></i> Appointment Title</p>
+                    <hr class="light">
+                    <br>
+                    <br>
+                    <h5 class="section-heading">Choose the best times for you</h5>
+                    <br>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    <i class="fa-solid fa-clock"></i> 
+                                    14:15 - 15:15
+                                </label>
+                            </div>
+                          <span class="badge rounded-pill design">Monday, 30.April</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    <i class="fa-solid fa-clock"></i> 
+                                    14:15 - 15:15
+                                </label>
+                            </div>
+                          <span class="badge rounded-pill design">Wednesday, 2.Mai</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    <i class="fa-solid fa-clock"></i> 
+                                    14:15 - 15:15
+                                </label>
+                              </div>
+                          <span class="badge rounded-pill design">Thrusday, 1.Juni</span>
+                        </li>
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="filler" id="create">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="text-center">
                     <h2 class="section-heading">Create a new appointment</h2>
                     <hr class="light">

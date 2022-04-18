@@ -23,6 +23,11 @@
  hr.light {
      border-color: #fff;
  }
+
+.vr {
+    border: 1px solid green;
+    height: 30px;
+ }
  
  a {
      color: #5F028E;
@@ -529,4 +534,9 @@
 
 .line-down {
     border-color: white;
+}
+
+.design {
+    background-color: #5F028E;
+    color: white;
 }
