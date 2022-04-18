@@ -473,6 +473,12 @@
      color: #fff;
      background: #222;
  }
+
+ img {
+     display: block;
+     max-width: 100%;
+     height: auto;
+ }
  
  img::selection {
      color: #fff;
