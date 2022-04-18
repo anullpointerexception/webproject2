@@ -546,3 +546,11 @@
     background-color: #5F028E;
     color: white;
 }
+
+.darkFont {
+    color:  #222;
+}
+
+.modalTPStyle {
+    background-color: #222;
+}
