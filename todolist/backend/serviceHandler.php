@@ -3,22 +3,33 @@ include("businesslogic/simpleLogic.php");
 
 $method = "";
 
+header("Access-Control-Expose-Headers: GET, POST, DELETE");
+
 isset($_GET["method"]) ? $method = $_GET["method"] : false;
 
 $logic = new SimpleLogic();
-$result = $logic->handleRequest($method);
+$result = $logic->handleRequest($method, $_SERVER['REQUEST_METHOD']);
 if ($result == null) {
-    response("GET", 400, null);
+    response($_SERVER['REQUEST_METHOD'], 400, null);
 } else {
-    response("GET", 200, $result);
+    response($_SERVER['REQUEST_METHOD'], 200, $result);
 }
 
 
 function response($method, $httpStatus, $data)
 {
     header('Content-Type: application/json');
+
     switch ($method) {
         case "GET":
+            http_response_code($httpStatus);
+            echo (json_encode($data));
+            break;
+        case "POST":
+            http_response_code($httpStatus);
+            echo (json_encode($data));
+            break;
+        case "DELETE":
             http_response_code($httpStatus);
             echo (json_encode($data));
             break;
