@@ -56,157 +56,15 @@
             <div class="header-content-inner">
                 <h1>Your current appointments</h1>
                 <hr>
-                <div class="content">
+                <div class="content" id="carousel-content">
                     <div id="carAppointControls" class="carousel slide" data-ride="carousel">
 
                     
                         <div class="grid">
         
                         </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <table width="100%">
-                                    <thead class="calendar-top"> 
-                                        <th class="calendar-item">
-                                            Algorithmen & Datenstrukturen
-                                        </th>
-                                        <th>
-                                            A.I. & Data Science
-                                        </th>
-                                        <th>
-                                            Web Technologies
-                                        </th>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="calendar-widgets">
-                                            <td class="calendar-widget open" id="1">
-                                                <div class="calender-widget-content">
-                                                    <br>
-                                                    <!-- onclick event für den jeweiligen Termin -->
-                                                    Datum: 8.3.2022
-                                                    <br>
-                                                    Begin: 8:00 
-                                                    <br>
-                                                    Ende: 10:00
-                                                    <br>
-                                                    <br>
-                                                </div>
-                                                <button type="button" class="btn btn-default btn-xl createAppoint"><i class="fa-solid fa-check-to-slot"></i> Vote</button>
-                                                <br>
-                                                <br>
-
-
-                                            </td>
-                                            <td class="calendar-widget open" id="2">
-                                                <div class="calender-widget-content">
-                                                    <br>
-                                                    <!-- onclick event für den jeweiligen Termin -->
-                                                    Datum: 8.3.2022
-                                                    <br>
-                                                    Begin: 8:00 
-                                                    <br>
-                                                    Ende: 10:00
-                                                    <br>
-                                                    <br>
-                                                </div>
-                                                <button type="button" class="btn btn-default btn-xl createAppoint"><i class="fa-solid fa-check-to-slot"></i> Vote</button>
-                                                <br>
-                                                <br>
-
-
-                                            </td>
-                                            <td class="calendar-widget open" id="3">
-                                                <div class="calender-widget-content">
-                                                    <br>
-                                                    <!-- onclick event für den jeweiligen Termin -->
-                                                    Datum: 8.3.2022
-                                                    <br>
-                                                    Begin: 8:00 
-                                                    <br>
-                                                    Ende: 10:00
-                                                    <br>
-                                                    <br>
-                                                </div>
-                                                <button type="button" class="btn btn-default btn-xl createAppoint"><i class="fa-solid fa-check-to-slot"></i> Vote</button>
-                                                <br>
-                                                <br>
-
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="carousel-item">
-                                <table width="100%">
-                                    <thead class="calendar-top"> 
-                                        <th class="calendar-item">
-                                            Agiles Projektmanagement
-                                        </th>
-                                        <th>
-                                            Prozeduale Sprachen
-                                        </th>
-                                        <th>
-                                            Web Technologies
-                                        </th>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="calendar-widgets">
-                                            <td class="calendar-widget closed" id="1">
-                                                <div class="calender-widget-content">
-                                                    <br>
-                                                    <!-- onclick event für den jeweiligen Termin -->
-                                                    Datum: 8.3.2022
-                                                    <br>
-                                                    Begin: 8:00 
-                                                    <br>
-                                                    Ende: 10:00
-                                                    <br>
-                                                    <br>
-                                                </div>
-                                                <button type="button" class="btn btn-default btn-xl createAppoint"><i class="fa-solid fa-check-to-slot"></i> Vote</button>
-                                                <br>
-                                                <br>
-
-                                            </td>
-                                            <td class="calendar-widget open" id="2">
-                                                <div class="calender-widget-content">
-                                                    <br>
-                                                    <!-- onclick event für den jeweiligen Termin -->
-                                                    Datum: 8.3.2022
-                                                    <br>
-                                                    Begin: 8:00 
-                                                    <br>
-                                                    Ende: 10:00
-                                                    <br>
-                                                    <br>
-                                                </div>
-                                                <button type="button" class="btn btn-default btn-xl createAppoint"><i class="fa-solid fa-check-to-slot"></i> Vote</button>
-                                                <br>
-                                                <br>
-
-                                            </td>
-                                            <td class="calendar-widget closed" id="3">
-                                                <div class="calender-widget-content">
-                                                    <br>
-                                                    <!-- onclick event für den jeweiligen Termin -->
-                                                    Datum: 8.3.2022
-                                                    <br>
-                                                    Begin: 8:00 
-                                                    <br>
-                                                    Ende: 10:00
-                                                    <br>
-                                                    <br>
-                                                </div>
-                                                <button type="button" id="createAppoint" class="btn btn-default btn-xl"><i class="fa-solid fa-check-to-slot"></i> Vote</button>
-                                                <br>
-                                                <br>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="carousel-inner" id="inner">
+                            
                         </div>
                         <a class="carousel-control-prev" href="#carAppointControls" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -693,6 +551,7 @@
             $('.createAppoint').click(function(){
                 $('#appointmentCreateModal').modal('show');   
             })
+            loadAppointments();
         });
     </script>
 
