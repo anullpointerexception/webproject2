@@ -547,13 +547,15 @@
                 return false;
             })
             
-            $('.createAppoint').click(function(){
-                $('#appointmentCreateModal').modal('show');   
-            })
 
             $(document).on('click','.calendar-widget-content',function(){
 
                 $('#appointmentModal').modal('show');   
+
+            });
+            $(document).on('click','.createAppoint',function(){
+
+                $('#appointmentCreateModal').modal('show');   
 
             });
         });
