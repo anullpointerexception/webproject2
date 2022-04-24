@@ -2,13 +2,17 @@
 include("businesslogic/simpleLogic.php");
 
 $method = "";
+$param="";
 
 header("Access-Control-Expose-Headers: GET, POST, DELETE");
 
 isset($_GET["method"]) ? $method = $_GET["method"] : false;
+isset($_GET["param"]) ? $param = $_GET["param"] : false;
+
+//echo "\n" . $_GET["param"] . "\n";
 
 $logic = new SimpleLogic();
-$result = $logic->handleRequest($method, $_SERVER['REQUEST_METHOD']);
+$result = $logic->handleRequest($method, $param, $_SERVER['REQUEST_METHOD']);
 if ($result == null) {
     response($_SERVER['REQUEST_METHOD'], 400, null);
 } else {

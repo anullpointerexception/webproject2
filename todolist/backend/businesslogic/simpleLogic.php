@@ -11,7 +11,7 @@ class SimpleLogic
         $this->dh = new DataHandler();
     }
 
-    function handleRequest($method, $httpmethod)
+    function handleRequest($method, $param, $httpmethod)
     {
         if($httpmethod==='GET'){
             switch ($method) {
@@ -19,7 +19,10 @@ class SimpleLogic
                 case "getAllAppointments":
                     $res = $this->dh->getAllAppointments();
                     break;
-                    
+                
+                case "getAppointmentDetails":
+                    $res = $this->dh->getAppointmentDetails($param);
+                    break;
                 default:
                     $res = null;
                     break;
