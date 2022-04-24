@@ -97,21 +97,39 @@ function loadAppointments(){
                     for(var j = 0; j < limit; j++){
                         var th = document.createElement('th');
                         th.setAttribute("class", "calendar-item");
-                        var thtext = document.createTextNode(appointments[item]["title"]);
+                        th.innerHTML = appointments[item]["title"];
                         th.setAttribute("id", "th" + appointments[item]["id"]);
                         
-                        th.appendChild(thtext);
                         tableTop.appendChild(th);
 
                         var td = document.createElement('td');
+
                         td.setAttribute('class', "calendar-widget open");
+
                         td.setAttribute('id', 'calendar-widget' + item);
+
                         var div = document.createElement('div');
+
                         div.setAttribute("class", "calendar-widget-content");
-                        var divTextNode = document.createTextNode(appointments[item]["expirationdate"]);
-                        div.appendChild(divTextNode);
+
+                        //div.appendChild(br);
+                        //div.appendChild(divTextNode);
+                        div.innerHTML = "<br>" + appointments[item]["expirationdate"] + "<br><br>";
+
+                        var button = document.createElement("button");
+                        button.setAttribute("class", "btn btn-default btn-xl createAppoint");
+                        button.setAttribute("type", "button");
+                        button.innerHTML = "Vote <i class='fa-solid fa-check-to-slot'></i>";
+                        var br = document.createElement("br");
+                        var br2 = document.createElement("br");
+
                         td.appendChild(div);
+                        td.appendChild(button);
+                        td.appendChild(br);
+                        td.appendChild(br2);
+
                         tr.appendChild(td);
+
                         item++;
                     }
                     table.appendChild(tableTop);
@@ -121,7 +139,7 @@ function loadAppointments(){
                     container++;
                     counter = counter - limit;
                 } else {
-                    
+
                     var citem = document.createElement('div');
                     citem.setAttribute("class", "carousel-item");
                     var table = document.createElement("table");
@@ -139,21 +157,36 @@ function loadAppointments(){
 
                         var th = document.createElement('th');
                         th.setAttribute("class", "calendar-item");
-                        var thtext = document.createTextNode(appointments[item]["title"]);
+                        th.innerHTML = appointments[item]["title"];
+
                         th.setAttribute("id", "th" + appointments[item]["id"]);
                         
-                        th.appendChild(thtext);
                         tableTop.appendChild(th);
 
                         var td = document.createElement('td');
+
                         td.setAttribute('class', "calendar-widget open");
                         td.setAttribute('id', 'calendar-widget' + item);
+
                         var div = document.createElement('div');
                         div.setAttribute("class", "calendar-widget-content");
-                        var divTextNode = document.createTextNode(appointments[item]["expirationdate"]);
-                        div.appendChild(divTextNode);
+
+                        div.innerHTML = "<br>" + appointments[item]["expirationdate"] + "<br><br>";
+
+                        var button = document.createElement("button");
+                        button.setAttribute("class", "btn btn-default btn-xl createAppoint");
+                        button.setAttribute("type", "button");
+                        button.innerHTML = "Vote <i class='fa-solid fa-check-to-slot'></i>";
+                        var br = document.createElement("br");
+                        var br2 = document.createElement("br");
+
                         td.appendChild(div);
+                        td.appendChild(button);
+                        td.appendChild(br);
+                        td.appendChild(br2);
+
                         tr.appendChild(td);
+
                         item++;
                     }
                     table.appendChild(tableTop);
@@ -164,6 +197,8 @@ function loadAppointments(){
                     container++;
                 }
             }
+
+           
 
         },
         error: function(error){
