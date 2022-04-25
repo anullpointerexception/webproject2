@@ -38,6 +38,26 @@
 
 const appointments = [];
 
+function calculateDuration(duration, time){
+
+    var num = duration;
+    var hours = (num / 60);
+    var rhours = Math.floor(hours);
+    var minutes = (hours - rhours) * 60;
+    var rminutes = Math.round(minutes);
+
+    console.log(rhours + " hours" + rminutes + " minutes");
+
+    var newHours = time.getHours() + rhours;
+
+    var newMinutes = String(time.getMinutes() + rminutes).padStart(2, '0');
+
+    var endDate = newHours + ":" + newMinutes;
+    return endDate;
+}
+
+
+
 
 function loadVoteDetails(id){
 
@@ -45,7 +65,6 @@ function loadVoteDetails(id){
 
 
     var paramID = parseInt(id.replace("div", ""));
-
 
 
     $.ajax({
@@ -58,14 +77,55 @@ function loadVoteDetails(id){
         },
         dataType: "json",
         success: function(result){
-                console.log(result[0].id);
                 $('#sectionTitle').text(result[0].title);
-                $('#createModalDuration').html("<i class='fa-solid fa-clock'></i> " + result[0].duration + " Hours");
+                $('#createModalDuration').html("<i class='fa-solid fa-clock'></i> " + result[0].duration + " Minutes");
                 $('#createModalLocation').html("<i class='fa-solid fa-location-pin'></i> " + result[0].location);
                 $('#createModalTitle').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
-        }});
 
-        $('#appointmentCreateModal').modal('show');
+                $.ajax({
+                    type: "GET",
+                    url: "../backend/serviceHandler.php",
+                    cache: false,
+                    data: {
+                        method: "getAppointmentDetails_withUC",
+                        param: result[0].id
+                    },
+                    dataType: "json",
+                    success: function(res){
+                        $('.list-group').children('.list-group-item').remove();
+                        $.each(res, function(s, li){
+
+
+                            var termin = li["termin"].split(/[- :]/);
+
+                            var dateOfAppointment = new Date(Date.UTC(termin[0], termin[1]-1, termin[2], termin[3], termin[4], termin[5]));
+
+                            const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
+
+
+                            var endOfAppointment = calculateDuration(li["duration"], dateOfAppointment);
+                        
+                            $('.list-group').append("<li class='list-group-item d-flex justify-content-between align-items-center'>\
+                            <div class='form-check'>\
+                            <input class='form-check-input' name='appointmentCheckBox' type='checkbox' value='1' id='flexCheckDefault'>\
+                            <label class='form-check-label darkFont' for='flexCheckDefault'>\
+                            <i class='fa-solid fa-clock'></i>\
+                             "+ dateOfAppointment.getHours() + ":" + minutes + " - " + endOfAppointment + "</label>\
+                             </div>\
+                             <span class='badge rounded-pill design'>"+ dateOfAppointment.getDate() + " / " + dateOfAppointment.getMonth() + " / " + dateOfAppointment.getFullYear() + "</span>\
+                             </li>");
+                        })
+                        $('#appointmentCreateModal').modal('show');
+
+                    }
+
+                    
+                })
+        }
+    });
+
+
+    
 
 
 
