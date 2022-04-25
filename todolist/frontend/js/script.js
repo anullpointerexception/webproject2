@@ -64,7 +64,7 @@ function loadVoteDetails(id){
 
     // to remove 'div' from id;
 
-    var paramID = parseInt(id.replace("div", ""));
+    var paramID = parseInt(id.replace("button", ""));
 
     $.ajax({
         type: "GET",
@@ -134,7 +134,7 @@ function groupBy(list, keyGetter) {
 
 function loadAppointmentsWithChoices(id){
 
-    var paramID = parseInt(id.replace("button", ""));
+    var paramID = parseInt(id.replace("div", ""));
 
     $.ajax({
         type: "GET",
@@ -173,6 +173,9 @@ function loadAppointmentsWithChoices(id){
                 var endOfAppointment = calculateDuration(userByGroup[0]["duration"], dateOfAppointment);
 
                 const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
+
+                // Using += method to prepare the html code before appending it to the accordion
+                // This is needed since some divs get closed automatically by the DOM before the loop is finished.
                 var accordionChild = "<div class='card'>";
                 accordionChild += "<div class='card-header' id='heading"+i+"'>";
                 accordionChild += "<h5 class='mb-0'>"
