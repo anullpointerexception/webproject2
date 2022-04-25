@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 21. Apr 2022 um 15:34
+-- Erstellungszeit: 25. Apr 2022 um 11:05
 -- Server-Version: 10.4.21-MariaDB
 -- PHP-Version: 8.0.10
 
@@ -40,8 +40,10 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `title`, `location`, `expirationdate`, `duration`) VALUES
-(1, 'Test', 'Wien', '0000-00-00 00:00:00', 0),
-(2, 'Test2', 'Brixen', '0000-00-00 00:00:00', 0);
+(1, 'Test', 'Wien', '2022-05-21 00:00:00', 60),
+(2, 'Test2', 'Brixen', '2022-05-20 00:00:00', 120),
+(3, 'Test3', 'Skr', '2022-04-25 09:52:06', 60),
+(4, 'Test4', 'Skr', '2022-04-25 09:52:06', 60);
 
 -- --------------------------------------------------------
 
@@ -52,8 +54,16 @@ INSERT INTO `appointments` (`id`, `title`, `location`, `expirationdate`, `durati
 CREATE TABLE `appointment_choices` (
   `id` int(11) NOT NULL,
   `appointmentid` int(11) NOT NULL,
-  `termin` date NOT NULL
+  `termin` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `appointment_choices`
+--
+
+INSERT INTO `appointment_choices` (`id`, `appointmentid`, `termin`) VALUES
+(1, 1, '2022-04-27 11:00:00'),
+(2, 1, '2022-04-29 18:00:00');
 
 -- --------------------------------------------------------
 
@@ -63,10 +73,18 @@ CREATE TABLE `appointment_choices` (
 
 CREATE TABLE `userchoice` (
   `userid` int(11) NOT NULL,
-  `name` varchar(200) NOT NULL,
   `terminid` int(11) NOT NULL,
-  `comment` varchar(200) DEFAULT NULL
+  `name` varchar(255) NOT NULL,
+  `comment` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `userchoice`
+--
+
+INSERT INTO `userchoice` (`userid`, `terminid`, `name`, `comment`) VALUES
+(1, 1, 'Simon', 'Aseu'),
+(2, 2, 'Max', 'Idk man');
 
 --
 -- Indizes der exportierten Tabellen
@@ -100,19 +118,19 @@ ALTER TABLE `userchoice`
 -- AUTO_INCREMENT für Tabelle `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT für Tabelle `appointment_choices`
 --
 ALTER TABLE `appointment_choices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `userchoice`
 --
 ALTER TABLE `userchoice`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints der exportierten Tabellen
@@ -122,13 +140,13 @@ ALTER TABLE `userchoice`
 -- Constraints der Tabelle `appointment_choices`
 --
 ALTER TABLE `appointment_choices`
-  ADD CONSTRAINT `appointment_choices_ibfk_1` FOREIGN KEY (`appointmentid`) REFERENCES `appointments` (`id`);
+  ADD CONSTRAINT `appointment_choices_ibfk_1` FOREIGN KEY (`appointmentid`) REFERENCES `appointments` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints der Tabelle `userchoice`
 --
 ALTER TABLE `userchoice`
-  ADD CONSTRAINT `userchoice_ibfk_1` FOREIGN KEY (`terminid`) REFERENCES `appointment_choices` (`id`);
+  ADD CONSTRAINT `userchoice_ibfk_1` FOREIGN KEY (`terminid`) REFERENCES `appointment_choices` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

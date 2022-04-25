@@ -44,7 +44,9 @@ class SimpleLogic
 
         }elseif($httpmethod==='DELETE'){
             switch ($method) {
-                //DELETE METHODS HERE  
+                case "deleteAppointment":
+                    $res=$this->dh->deleteAppointment($param);
+                    break;  
                 default:
                     $res = null;
                     break;

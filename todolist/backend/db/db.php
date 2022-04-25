@@ -7,6 +7,8 @@ class DbConnecter{
         define('DB_SERVER', 'localhost');
         define('DB_USERNAME', 'root');
         define('DB_PASSWORD', '');
+        //define('DB_USERNAME', 'bif2webscriptinguser');
+        //define('DB_PASSWORD', 'bif2021');
         define('DB_NAME', 'appointmentorganizer');
  
         /* Attempt to connect to MySQL database */

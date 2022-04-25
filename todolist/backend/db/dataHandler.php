@@ -50,4 +50,16 @@ class DataHandler
             return "success";
         } */
     }
+
+    public function deleteAppointment($id){
+        $stmt=$this->db->mysqli->prepare('DELETE FROM appointments WHERE id=?');
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        
+        if($stmt->error){
+            return null;
+        }else{
+            return "success";
+        }
+    }
 }
