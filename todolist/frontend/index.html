@@ -540,19 +540,26 @@
     </section>
     <script>
         $(document).ready(function(){
+            loadAppointments();
             $('.appointmentCheckBox').click(function () {
                 var check = $('.filler').find('input[type=checkbox]:checked').length;
                 alert(check);
                 return false;
             })
-            $('.calender-widget-content').click(function(){
+            
+
+            $(document).on('click','.calendar-widget-content',function(){
+
                 $('#appointmentModal').modal('show');   
-            })
-            $('.createAppoint').click(function(){
+
+            });
+            $(document).on('click','.createAppoint',function(){
+
                 $('#appointmentCreateModal').modal('show');   
-            })
-            loadAppointments();
+
+            });
         });
+       
     </script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

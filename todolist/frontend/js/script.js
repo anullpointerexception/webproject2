@@ -39,7 +39,7 @@
 const appointments = [];
 
 function loadAppointments(){
-    var counter = -1;
+    var counter = 0;
     var items = 0;
     var container = 0;
     var item = 0;
@@ -59,27 +59,27 @@ function loadAppointments(){
                 counter++;
             });
 
+
+
             // bisschen mathematik um den Count für die Tabelle zu ermitteln
             // Bedeutet: Falls die Division durch 3 einen Rest ergibt soll der integer part der anzahl genommen werden und + 1 addiert werden, damit auch keine
             // Datensätze fehlen.
             
             var n = counter / 3;
             var result = (n - Math.floor(n)) !== 0; 
-            console.log("n = " + n);
             if (result){
                 var newCount = Math.trunc(n) + 1; 
             } else {
                 var newCount = n;
             }
+
             
-            if((counter - 3) > 0){
-                var limit = 3;
-            } else {
-                var limit = counter;
-            }
-
-
             for(var i = 0; i < newCount; i++){
+                if((counter - 3) > 0){
+                    var limit = 3;
+                } else {
+                    var limit = counter;
+                }
                 if(container == 0){
                     var citem = document.createElement('div');
                     citem.setAttribute("class", "carousel-item active");
@@ -94,40 +94,51 @@ function loadAppointments(){
                     tr.setAttribute('class',"calendar-widgets");
                     tableBody.appendChild(tr);
                     
-                    console.log("Limit: " + limit);
-
                     for(var j = 0; j < limit; j++){
-                        if(item <= counter){
-                        
                         var th = document.createElement('th');
                         th.setAttribute("class", "calendar-item");
-                        var thtext = document.createTextNode(appointments[item]["title"]);
+                        th.innerHTML = appointments[item]["title"];
                         th.setAttribute("id", "th" + appointments[item]["id"]);
                         
-                        th.appendChild(thtext);
                         tableTop.appendChild(th);
 
                         var td = document.createElement('td');
+
                         td.setAttribute('class', "calendar-widget open");
+
                         td.setAttribute('id', 'calendar-widget' + item);
+
                         var div = document.createElement('div');
+
                         div.setAttribute("class", "calendar-widget-content");
-                        var divTextNode = document.createTextNode(appointments[item]["expirationdate"]);
-                        div.appendChild(divTextNode);
+
+                        //div.appendChild(br);
+                        //div.appendChild(divTextNode);
+                        div.innerHTML = "<br>" + appointments[item]["expirationdate"] + "<br><br>";
+
+                        var button = document.createElement("button");
+                        button.setAttribute("class", "btn btn-default btn-xl createAppoint");
+                        button.setAttribute("type", "button");
+                        button.innerHTML = "Vote <i class='fa-solid fa-check-to-slot'></i>";
+                        var br = document.createElement("br");
+                        var br2 = document.createElement("br");
+
                         td.appendChild(div);
+                        td.appendChild(button);
+                        td.appendChild(br);
+                        td.appendChild(br2);
+
                         tr.appendChild(td);
+
                         item++;
-                        } else {
-                            break;
-                        }
                     }
                     table.appendChild(tableTop);
                     table.appendChild(tableBody);
                     citem.appendChild(table);
                     $('#inner').append(citem);
                     container++;
+                    counter = counter - limit;
                 } else {
-                    console.log("Limit: " + limit);
 
                     var citem = document.createElement('div');
                     citem.setAttribute("class", "carousel-item");
@@ -141,39 +152,53 @@ function loadAppointments(){
                     var tr = document.createElement('tr');
                     tr.setAttribute('class',"calendar-widgets");
                     tableBody.appendChild(tr);
-                    for(var j = 0; j < limit; j++){
-                        console.log(item);
-                        if(item <= counter){
-                        
-                            var th = document.createElement('th');
-                            th.setAttribute("class", "calendar-item");
-                            var thtext = document.createTextNode(appointments[item]["title"]);
-                            th.setAttribute("id", "th" + appointments[item]["id"]);
-                        
-                            th.appendChild(thtext);
-                            tableTop.appendChild(th);
 
-                            var td = document.createElement('td');
-                            td.setAttribute('class', "calendar-widget open");
-                            td.setAttribute('id', 'calendar-widget' + item);
-                            var div = document.createElement('div');
-                            div.setAttribute("class", "calendar-widget-content");
-                            var divTextNode = document.createTextNode(appointments[item]["expirationdate"]);
-                            div.appendChild(divTextNode);
-                            td.appendChild(div);
-                            tr.appendChild(td);
-                            item++;
-                        } else {
-                            break;
-                        }
+                    for(var j = 0; j < limit; j++){
+
+                        var th = document.createElement('th');
+                        th.setAttribute("class", "calendar-item");
+                        th.innerHTML = appointments[item]["title"];
+
+                        th.setAttribute("id", "th" + appointments[item]["id"]);
+                        
+                        tableTop.appendChild(th);
+
+                        var td = document.createElement('td');
+
+                        td.setAttribute('class', "calendar-widget open");
+                        td.setAttribute('id', 'calendar-widget' + item);
+
+                        var div = document.createElement('div');
+                        div.setAttribute("class", "calendar-widget-content");
+
+                        div.innerHTML = "<br>" + appointments[item]["expirationdate"] + "<br><br>";
+
+                        var button = document.createElement("button");
+                        button.setAttribute("class", "btn btn-default btn-xl createAppoint");
+                        button.setAttribute("type", "button");
+                        button.innerHTML = "Vote <i class='fa-solid fa-check-to-slot'></i>";
+                        var br = document.createElement("br");
+                        var br2 = document.createElement("br");
+
+                        td.appendChild(div);
+                        td.appendChild(button);
+                        td.appendChild(br);
+                        td.appendChild(br2);
+
+                        tr.appendChild(td);
+
+                        item++;
                     }
                     table.appendChild(tableTop);
                     table.appendChild(tableBody);
                     citem.appendChild(table);
                     $('#inner').append(citem);
+                    counter = counter - limit;
                     container++;
                 }
             }
+
+           
 
         },
         error: function(error){
