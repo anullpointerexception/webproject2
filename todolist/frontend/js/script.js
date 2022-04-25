@@ -95,27 +95,34 @@ function loadVoteDetails(id){
                         $('.list-group').children('.list-group-item').remove();
                         $.each(res, function(s, li){
 
-
                             var termin = li["termin"].split(/[- :]/);
 
                             var dateOfAppointment = new Date(Date.UTC(termin[0], termin[1]-1, termin[2], termin[3], termin[4], termin[5]));
 
                             const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
 
-
                             var endOfAppointment = calculateDuration(li["duration"], dateOfAppointment);
                         
                             $('.list-group').append("<li class='list-group-item d-flex justify-content-between align-items-center'>\
                             <div class='form-check'>\
-                            <input class='form-check-input' name='appointmentCheckBox' type='checkbox' value='1' id='flexCheckDefault'>\
+                            <input class='form-check-input' name='appointmentNumber' type='checkbox' value='1' id='flexCheckDefault'>\
                             <label class='form-check-label darkFont' for='flexCheckDefault'>\
                             <i class='fa-solid fa-clock'></i>\
                              "+ dateOfAppointment.getHours() + ":" + minutes + " - " + endOfAppointment + "</label>\
                              </div>\
                              <span class='badge rounded-pill design'>"+ dateOfAppointment.getDate() + " / " + dateOfAppointment.getMonth() + " / " + dateOfAppointment.getFullYear() + "</span>\
                              </li>");
+                            
+                
                         })
                         $('#appointmentCreateModal').modal('show');
+                        $('form').on('submit', function(){
+                            var obj = $('form').serializeJSON()
+
+                             console.log(obj);
+                            
+                             return false;
+                         });
 
                     }
 
