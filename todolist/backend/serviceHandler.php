@@ -9,7 +9,8 @@ header("Access-Control-Expose-Headers: GET, POST, DELETE");
 isset($_GET["method"]) ? $method = $_GET["method"] : false;
 isset($_GET["param"]) ? $param = $_GET["param"] : false;
 
-//echo "\n" . $_GET["param"] . "\n";
+//echo "\n" . $_SERVER['REQUEST_METHOD'] . "\n";
+//echo "\n" . $method . "\n";
 
 $logic = new SimpleLogic();
 $result = $logic->handleRequest($method, $param, $_SERVER['REQUEST_METHOD']);
@@ -31,7 +32,7 @@ function response($method, $httpStatus, $data)
             break;
         case "POST":
             http_response_code($httpStatus);
-            echo (json_encode($data));
+            echo ($data);
             break;
         case "DELETE":
             http_response_code($httpStatus);

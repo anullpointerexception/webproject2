@@ -23,6 +23,9 @@ class SimpleLogic
                 case "getAppointmentDetails":
                     $res = $this->dh->getAppointmentDetails($param);
                     break;
+                case "getAppointmentDetails_withUC":
+                    $res=$this->dh->getAppointmentDetails_withUC($param);
+                    break;
                 default:
                     $res = null;
                     break;
@@ -30,7 +33,10 @@ class SimpleLogic
         
         }elseif($httpmethod==='POST'){
             switch ($method) {
-                //POST METHODS HERE  
+                
+                case "addAppointment":
+                    $res = $this->dh->addAppointment($param);
+                    break;
                 default:
                     $res = null;
                     break;
@@ -38,7 +44,9 @@ class SimpleLogic
 
         }elseif($httpmethod==='DELETE'){
             switch ($method) {
-                //DELETE METHODS HERE  
+                case "deleteAppointment":
+                    $res=$this->dh->deleteAppointment($param);
+                    break;  
                 default:
                     $res = null;
                     break;
