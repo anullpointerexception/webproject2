@@ -38,15 +38,49 @@
 
 const appointments = [];
 
+
+function loadVoteDetails(id){
+
+    // to remove 'button' from id;
+
+
+    var paramID = parseInt(id.replace("div", ""));
+
+
+
+    $.ajax({
+        type: "GET",
+        url: "../backend/serviceHandler.php",
+        cache: false,
+        data: {
+            method: "getAppointmentDetails",
+            param: paramID
+        },
+        dataType: "json",
+        success: function(result){
+                console.log(result[0].id);
+                $('#sectionTitle').text(result[0].title);
+                $('#createModalDuration').html("<i class='fa-solid fa-clock'></i> " + result[0].duration + " Hours");
+                $('#createModalLocation').html("<i class='fa-solid fa-location-pin'></i> " + result[0].location);
+                $('#createModalTitle').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
+        }});
+
+        $('#appointmentCreateModal').modal('show');
+
+
+
+}
+
 function loadAppointments(){
     var counter = 0;
     var items = 0;
     var container = 0;
     var item = 0;
 
+
     $.ajax({
         type: "GET",
-        url: "../../todolist/backend/serviceHandler.php",
+        url: "../backend/serviceHandler.php",
         cache: false,
         data: {
             method : "getAllAppointments"
@@ -111,6 +145,7 @@ function loadAppointments(){
                         var div = document.createElement('div');
 
                         div.setAttribute("class", "calendar-widget-content");
+                        div.setAttribute("id", "div" + appointments[item]["id"]);
 
                         //div.appendChild(br);
                         //div.appendChild(divTextNode);
@@ -119,6 +154,7 @@ function loadAppointments(){
                         var button = document.createElement("button");
                         button.setAttribute("class", "btn btn-default btn-xl createAppoint");
                         button.setAttribute("type", "button");
+                        button.setAttribute("id", "button" + appointments[item]["id"]);
                         button.innerHTML = "Vote <i class='fa-solid fa-check-to-slot'></i>";
                         var br = document.createElement("br");
                         var br2 = document.createElement("br");
@@ -127,7 +163,6 @@ function loadAppointments(){
                         td.appendChild(button);
                         td.appendChild(br);
                         td.appendChild(br2);
-
                         tr.appendChild(td);
 
                         item++;
@@ -170,12 +205,15 @@ function loadAppointments(){
 
                         var div = document.createElement('div');
                         div.setAttribute("class", "calendar-widget-content");
+                        div.setAttribute("id", "div" + appointments[item]["id"]);
 
                         div.innerHTML = "<br>" + appointments[item]["expirationdate"] + "<br><br>";
 
                         var button = document.createElement("button");
                         button.setAttribute("class", "btn btn-default btn-xl createAppoint");
                         button.setAttribute("type", "button");
+                        button.setAttribute("id", "button" + appointments[item]["id"]);
+
                         button.innerHTML = "Vote <i class='fa-solid fa-check-to-slot'></i>";
                         var br = document.createElement("br");
                         var br2 = document.createElement("br");
