@@ -61,9 +61,7 @@ function calculateDuration(duration, time){
 
 
 function loadVoteDetails(id){
-
-    // to remove 'div' from id;
-
+    // to remove 'button' from id;
     var paramID = parseInt(id.replace("button", ""));
 
     $.ajax({
@@ -84,7 +82,6 @@ function loadVoteDetails(id){
 
                 $.each(result, function(s, li){
 
-
                     var termin = li["termin"].split(/[- :]/);
 
                     var dateOfAppointment = new Date(termin[0], termin[1], termin[2], termin[3], termin[4], termin[5]);
@@ -92,8 +89,7 @@ function loadVoteDetails(id){
                     const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
 
                     var endOfAppointment = calculateDuration(li["duration"], dateOfAppointment);
-
-                        
+   
                     $('.list-group').append("<li class='list-group-item d-flex justify-content-between align-items-center'>\
                     <div class='form-check'>\
                     <input class='form-check-input' name='appointmentNumber' type='checkbox' value='1' id='flexCheckDefault'>\
@@ -112,8 +108,7 @@ function loadVoteDetails(id){
                     console.log(obj);
                             
                     return false;
-                });
-               
+                });    
         }
     });
 
@@ -155,24 +150,15 @@ function loadAppointmentsWithChoices(id){
                 users.push(user);
             });
 
-
             const grouped = groupBy(users, userX => userX.terminid);
+            
             $('#accordion').children().remove();
             
-
-            var len = grouped.size;
-
-            console.log(len);
-
-
-
-
-            for (var i = 0; i < len; i++) {
+            for (var i = 0; i < grouped.size; i++) {
                 
                 var x = users[i].terminid;
+
                 var userByGroup = grouped.get(x);
-
-
 
                 var termin = userByGroup[0]["termin"].split(/[- :]/);
 
@@ -182,8 +168,8 @@ function loadAppointmentsWithChoices(id){
 
                 const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
 
-                // Using += method to prepare the html code before appending it to the accordion
-                // This is needed since some divs get closed automatically by the DOM before the loop is finished.
+                // Wir benützen das accordionChild um das HTML Gerüst vor dem Anhängen an accordion aufzubauen.
+                // Brauchen wir deswegen, weil ansonsten das Browser-DOM div-Tags schließt, bevor die Loop beendet ist. => Wollen wir nicht. 
                 var accordionChild = "<div class='card'>";
                 accordionChild += "<div class='card-header' id='heading"+i+"'>";
                 accordionChild += "<h5 class='mb-0'>"
@@ -193,26 +179,17 @@ function loadAppointmentsWithChoices(id){
                 accordionChild +=  "<div id='collapse"+i+"' class='collapse' aria-labelledby='headingOne' data-parent='#accordion'>";
                 accordionChild +=  "<div class='card-body'><div id='carouselParticipantControls"+i+"' class='carousel slide' data-ride='carousel'><div class='carousel-inner' id='carousel-inner"+i+"'>"
 
-
                 var container = 0;
 
-
                 for(j = 0; j < userByGroup.length; j++){
-                    var carousel = '#carousel-inner'+i;
 
                     if(container === 0){
                         accordionChild += "<div class='carousel-item active'><table width='100%' class='section-heading primary'><thead><th>" + userByGroup[j]['name'] +"</th></thead><tbody><td>" + userByGroup[j]['comment'] + "</td></tbody></table></div>";
                         container++;
-
                     } else {
-                        
                         accordionChild += "<div class='carousel-item'><table width='100%' class='section-heading primary'><thead><th>" + userByGroup[j]['name'] +"</th></thead><tbody><td>" + userByGroup[j]['comment'] + "</td></tbody></table></div>";
                         container++;
-
                     }
-                    
-                    
-
                 }
                 accordionChild += "</div>";
                 accordionChild += "<a class='carousel-control-prev indicatorsBlack' href='#carouselParticipantControls"+i+"' role='button' data-slide='prev'>";
@@ -224,19 +201,10 @@ function loadAppointmentsWithChoices(id){
                 accordionChild += "<span class='sr-only darkFont'>Next</span>";
                 accordionChild += "</a></div></div></div></div>";
                 $('#accordion').append(accordionChild);
-
-                
                 $('.carousel').carousel()
-
-
             } 
-
             $('#appointmentModal').modal('show');
-
-
-
         }
-
     })
 }
 
@@ -262,8 +230,6 @@ function loadAppointments(){
                 counter++;
             });
 
-
-
             // bisschen mathematik um den Count für die Tabelle zu ermitteln
             // Bedeutet: Falls die Division durch 3 einen Rest ergibt soll der integer part der anzahl genommen werden und + 1 addiert werden, damit auch keine
             // Datensätze fehlen.
@@ -276,7 +242,6 @@ function loadAppointments(){
                 var newCount = n;
             }
 
-            
             for(var i = 0; i < newCount; i++){
                 if((counter - 3) > 0){
                     var limit = 3;
@@ -404,8 +369,6 @@ function loadAppointments(){
                     container++;
                 }
             }
-
-           
 
         },
         error: function(error){
