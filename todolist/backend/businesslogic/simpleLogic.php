@@ -30,7 +30,10 @@ class SimpleLogic
         
         }elseif($httpmethod==='POST'){
             switch ($method) {
-                //POST METHODS HERE  
+                
+                case "addAppointment":
+                    $res = $this->dh->addAppointment($param);
+                    break;
                 default:
                     $res = null;
                     break;
