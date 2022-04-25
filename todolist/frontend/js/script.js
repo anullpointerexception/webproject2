@@ -37,6 +37,7 @@
 })(jQuery);
 
 const appointments = [];
+const users = [];
 
 function calculateDuration(duration, time){
 
@@ -117,13 +118,23 @@ function loadVoteDetails(id){
     });
 
 }
-
+function groupBy(list, keyGetter) {
+    const map = new Map();
+    list.forEach((item) => {
+         const key = keyGetter(item);
+         const collection = map.get(key);
+         if (!collection) {
+             map.set(key, [item]);
+         } else {
+             collection.push(item);
+         }
+    });
+    return map;
+}
 
 function loadAppointmentsWithChoices(id){
 
     var paramID = parseInt(id.replace("button", ""));
-
-
 
     $.ajax({
         type: "GET",
@@ -139,6 +150,58 @@ function loadAppointmentsWithChoices(id){
             $('#durationModalNormal').html("<i class='fa-solid fa-clock'></i> " + result[0].duration + " Minutes");
             $('#locationModalNormal').html("<i class='fa-solid fa-location-pin'></i> " + result[0].location);
             $('#titleModalNormal').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
+
+            $.each(result, function(x, user){
+                users.push(user);
+            });
+            const grouped = groupBy(users, userX => userX.terminid);
+
+
+            for (i = 1; i <= groupBy.length; i++) {
+                $('#accordion').append(
+                "<div class='card'>\
+                <div class='card-header' id='heading2'>\
+                  <h5 class='mb-0'>\
+                    <button class='btn btn-link' data-toggle='collapse' data-target='#collapseTwo' aria-expanded='true' aria-controls='collapseOne'>\
+                    </button>\
+                  </h5>\
+                </div>\
+                <div id='collapseTwo' class='collapse' aria-labelledby='headingOne' data-parent='#accordion'>\
+                  <div class='card-body'>\
+                      <div id='carouselParticipantControls2' class='carousel slide' data-ride='carousel'>\
+                          <div class='carousel-inner'>"
+                );
+
+                var userByGroup = grouped.get(i);
+
+                for(j = 0; j < userByGroup.length; j++){
+                    console.log("Group " + i + ": " + userByGroup[j]['name']);
+                }
+
+                $('#accordion').append(
+                    "</div>\
+                    </div>\
+                    <a class='carousel-control-prev indicatorsBlack' href='#carouselParticipantControls2' role='button' data-slide='prev'>\
+                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>\
+                    <span class='sr-only darkFont'>Previous</span>\
+                    </a>\
+                    <a class='carousel-control-next indicatorsBlack' href='#carouselParticipantControls2' role='button' data-slide='next'>\
+                    <span class='carousel-control-next-icon' aria-hidden='true'></span>\
+                    <span class='sr-only darkFont'>Next</span>\
+                    </a>\
+                    </div>\
+                    </div>\
+                    </div>\
+                    </div>"
+                );
+
+            } 
+
+
+
+
+
+
             $('#appointmentModal').modal('show');
 
 
