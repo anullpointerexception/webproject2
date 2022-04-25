@@ -1,3 +1,4 @@
+var s = 0;
 
 (function($) {
     "use strict"; // Start of use strict
@@ -37,7 +38,6 @@
 })(jQuery);
 
 const appointments = [];
-const users = [];
 
 function calculateDuration(duration, time){
 
@@ -133,7 +133,7 @@ function groupBy(list, keyGetter) {
 }
 
 function loadAppointmentsWithChoices(id){
-
+    var users = [];
     var paramID = parseInt(id.replace("div", ""));
 
     $.ajax({
@@ -154,17 +154,25 @@ function loadAppointmentsWithChoices(id){
             $.each(result, function(x, user){
                 users.push(user);
             });
+
+
             const grouped = groupBy(users, userX => userX.terminid);
             $('#accordion').children().remove();
-            console.log("groupby Length: " + groupBy.length);
+            
 
-            for (i = 1; i <= groupBy.length; i++) {
+            var len = grouped.size;
 
-                var userByGroup = grouped.get(i);
+            console.log(len);
 
 
-                console.log("Users: ");
-                console.log(userByGroup);
+
+
+            for (var i = 0; i < len; i++) {
+                
+                var x = users[i].terminid;
+                var userByGroup = grouped.get(x);
+
+
 
                 var termin = userByGroup[0]["termin"].split(/[- :]/);
 
@@ -190,12 +198,9 @@ function loadAppointmentsWithChoices(id){
 
 
                 for(j = 0; j < userByGroup.length; j++){
-                    console.log("Length: " + userByGroup.length)
-                    console.log("Group " + i + ": " + userByGroup[j]['name']);
                     var carousel = '#carousel-inner'+i;
 
                     if(container === 0){
-                        // $(carousel).append(
                         accordionChild += "<div class='carousel-item active'><table width='100%' class='section-heading primary'><thead><th>" + userByGroup[j]['name'] +"</th></thead><tbody><td>" + userByGroup[j]['comment'] + "</td></tbody></table></div>";
                         container++;
 
@@ -225,11 +230,6 @@ function loadAppointmentsWithChoices(id){
 
 
             } 
-
-
-
-
-
 
             $('#appointmentModal').modal('show');
 
