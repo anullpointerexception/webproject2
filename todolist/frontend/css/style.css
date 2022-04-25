@@ -57,3 +57,7 @@ html, body {
     width: 100vh;
     margin: auto;
 }
+
+.participants {
+    display: block;
+}

@@ -116,11 +116,36 @@ function loadVoteDetails(id){
         }
     });
 
-
-    
-
+}
 
 
+function loadAppointmentsWithChoices(id){
+
+    var paramID = parseInt(id.replace("button", ""));
+
+
+
+    $.ajax({
+        type: "GET",
+        url: "../backend/serviceHandler.php",
+        cache: false,
+        data: {
+            method: "getAppointmentDetails_withUC",
+            param: paramID
+        },
+        dataType: "json",
+        success: function(result){
+            $('#headerModalNormal').text(result[0].title);
+            $('#durationModalNormal').html("<i class='fa-solid fa-clock'></i> " + result[0].duration + " Minutes");
+            $('#locationModalNormal').html("<i class='fa-solid fa-location-pin'></i> " + result[0].location);
+            $('#titleModalNormal').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
+            $('#appointmentModal').modal('show');
+
+
+
+        }
+
+    })
 }
 
 function loadAppointments(){

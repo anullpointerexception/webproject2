@@ -90,7 +90,7 @@
                     <h2 class="section-heading">Create a new appointment</h2>
                     <hr class="light">
                     <p class="text-faded">You want to create a new appointment and enable voting for different time slots? Just press the create button to create a new appointment.</p>
-                    <button type="button" id="createAppoint" class="btn btn-default btn-xl"><i class="fa-solid fa-plus"></i> CREATE NEW APPOINTMENT</button>
+                    <button type="button" id="createAppoint" class="btn btn-default btn-xl createAppoint"><i class="fa-solid fa-plus"></i> CREATE NEW APPOINTMENT</button>
                 </div>
             </div>
         </div>
@@ -101,11 +101,11 @@
         <div class="modal-dialog flex-column justify-content-center my-0" role="document">
             <div class="modal-content rounded-10">
                 <div class="container">
-                    <div class="row justify-content-center design">
+                    <div class="row justify-content-center design participants">
                         <div class="text-center">
                             <div class="modal-body">
                                 <br>
-                                <h2 class="section-heading">Details of Appointment Title</h2>
+                                <h2 class="section-heading" id="headerModalNormal">Details of Appointment Title</h2>
                                 
                                 <br>
         
@@ -115,7 +115,6 @@
                             
                                 <p class="text-faded" id="durationModalNormal"><i class="fa-solid fa-clock"></i> 1 Hour</p>
                                 <p class="text-faded" id="locationModalNormal"><i class="fa-solid fa-location-pin"></i></i> Demo City</p>
-                                <p class="text-faded" id="gmtModalNormal"><i class="fa-solid fa-globe"></i> Europe/Vienna (GMT+2:00)</p>
                                 <p class="text-faded" id="titleModalNormal"><i class="fa-solid fa-diamond"></i></i> Appointment Title</p>
                                                          
                                 <hr class="light">
@@ -338,7 +337,7 @@
             <form method="post" id="appointmentViewPost" action="#">
             <div class="modal-content rounded-10">
                 <div class="container">
-                    <div class="row justify-content-center design">
+                    <div class="row justify-content-center design participants">
                         <div class="text-center">
                             
                             <div class="modal-body">
@@ -525,9 +524,7 @@
 
             });
             $(document).on('click','.createAppoint',function(){
-
-                // loadVoteDetails(this.id);   
-
+                loadAppointmentsWithChoices(this.id);   
             });
         });
        
