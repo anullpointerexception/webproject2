@@ -155,45 +155,92 @@ function loadAppointmentsWithChoices(id){
                 users.push(user);
             });
             const grouped = groupBy(users, userX => userX.terminid);
-
+            $('#accordion').children().remove();
+            console.log("groupby Length: " + groupBy.length);
 
             for (i = 1; i <= groupBy.length; i++) {
-                $('#accordion').append(
-                "<div class='card'>\
-                <div class='card-header' id='heading2'>\
-                  <h5 class='mb-0'>\
-                    <button class='btn btn-link' data-toggle='collapse' data-target='#collapseTwo' aria-expanded='true' aria-controls='collapseOne'>\
-                    </button>\
-                  </h5>\
-                </div>\
-                <div id='collapseTwo' class='collapse' aria-labelledby='headingOne' data-parent='#accordion'>\
-                  <div class='card-body'>\
-                      <div id='carouselParticipantControls2' class='carousel slide' data-ride='carousel'>\
-                          <div class='carousel-inner'>"
-                );
 
                 var userByGroup = grouped.get(i);
 
+
+                console.log("Users: ");
+                console.log(userByGroup);
+
+                var termin = userByGroup[0]["termin"].split(/[- :]/);
+
+                var dateOfAppointment = new Date(termin[0], termin[1], termin[2], termin[3], termin[4], termin[5]);
+
+                var endOfAppointment = calculateDuration(userByGroup[0]["duration"], dateOfAppointment);
+
+                const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
+
+
+                $('#accordion').append(
+                "<div class='card'>\
+                <div class='card-header' id='heading"+i+"'>\
+                  <h5 class='mb-0'>\
+                    <button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='true' aria-controls='collapseOne'>"
+                    + "Timeslot: " + dateOfAppointment.getHours() + ":" + minutes + " - " + endOfAppointment + 
+                    "</button>\
+                  </h5>\
+                </div>\
+                <div id='collapse"+i+"' class='collapse' aria-labelledby='headingOne' data-parent='#accordion'>\
+                  <div class='card-body'>\
+                      <div id='carouselParticipantControls"+i+"' class='carousel slide' data-ride='carousel'>\
+                          <div class='carousel-inner' id='carousel-inner"+i+"'>"
+                );
+
+                var container = 0;
+
+
                 for(j = 0; j < userByGroup.length; j++){
+                    console.log("Length: " + userByGroup.length)
                     console.log("Group " + i + ": " + userByGroup[j]['name']);
+                    var carousel = '#carousel-inner'+i;
+
+                    if(container === 0){
+                         
+                        $(carousel).append(
+                        "<div class='carousel-item active'>\
+                                                    <table width='100%' class='section-heading primary'>\
+                                                       <thead>\
+                                                           <th>" + userByGroup[j]['name'] +"</th>\
+                                                       </thead>\
+                                                       <tbody>\
+                                                           <td>" + userByGroup[j]['comment'] + "</td>\
+                                                       </tbody>\
+                                                    </table>\
+                        </div>");
+                        container++;
+
+                    } else {
+                        $(carousel).append(
+                            "<div class='carousel-item'>\
+                                                        <table width='100%' class='section-heading primary'>\
+                                                           <thead>\
+                                                               <th>"+ userByGroup[j]['name'] +"</th>\
+                                                           </thead>\
+                                                           <tbody>\
+                                                               <td>" + userByGroup[j]['comment'] + "</td>\
+                                                           </tbody>\
+                                                        </table>\
+                            </div>");
+
+                    }
+                    
+                    
+
                 }
 
                 $('#accordion').append(
                     "</div>\
                     </div>\
-                    <a class='carousel-control-prev indicatorsBlack' href='#carouselParticipantControls2' role='button' data-slide='prev'>\
-                    <span class='carousel-control-prev-icon' aria-hidden='true'></span>\
-                    <span class='sr-only darkFont'>Previous</span>\
-                    </a>\
-                    <a class='carousel-control-next indicatorsBlack' href='#carouselParticipantControls2' role='button' data-slide='next'>\
-                    <span class='carousel-control-next-icon' aria-hidden='true'></span>\
-                    <span class='sr-only darkFont'>Next</span>\
-                    </a>\
-                    </div>\
                     </div>\
                     </div>\
                     </div>"
                 );
+                $('.carousel').carousel()
+
 
             } 
 

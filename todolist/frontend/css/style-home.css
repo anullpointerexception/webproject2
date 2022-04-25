@@ -556,3 +556,7 @@
 .participants {
     display: block;
 }
+
+.modal-dialog{
+    top: 5%;
+}
