@@ -61,11 +61,9 @@ function calculateDuration(duration, time){
 
 function loadVoteDetails(id){
 
-    // to remove 'button' from id;
-
+    // to remove 'div' from id;
 
     var paramID = parseInt(id.replace("div", ""));
-
 
     $.ajax({
         type: "GET",
@@ -81,53 +79,40 @@ function loadVoteDetails(id){
                 $('#createModalDuration').html("<i class='fa-solid fa-clock'></i> " + result[0].duration + " Minutes");
                 $('#createModalLocation').html("<i class='fa-solid fa-location-pin'></i> " + result[0].location);
                 $('#createModalTitle').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
+                $('.list-group').children('.list-group-item').remove();
 
-                $.ajax({
-                    type: "GET",
-                    url: "../backend/serviceHandler.php",
-                    cache: false,
-                    data: {
-                        method: "getAppointmentDetails_withUC",
-                        param: result[0].id
-                    },
-                    dataType: "json",
-                    success: function(res){
-                        $('.list-group').children('.list-group-item').remove();
-                        $.each(res, function(s, li){
+                $.each(result, function(s, li){
 
-                            var termin = li["termin"].split(/[- :]/);
 
-                            var dateOfAppointment = new Date(Date.UTC(termin[0], termin[1]-1, termin[2], termin[3], termin[4], termin[5]));
+                    var termin = li["termin"].split(/[- :]/);
 
-                            const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
+                    var dateOfAppointment = new Date(termin[0], termin[1], termin[2], termin[3], termin[4], termin[5]);
 
-                            var endOfAppointment = calculateDuration(li["duration"], dateOfAppointment);
+                    const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
+
+                    var endOfAppointment = calculateDuration(li["duration"], dateOfAppointment);
+
                         
-                            $('.list-group').append("<li class='list-group-item d-flex justify-content-between align-items-center'>\
-                            <div class='form-check'>\
-                            <input class='form-check-input' name='appointmentNumber' type='checkbox' value='1' id='flexCheckDefault'>\
-                            <label class='form-check-label darkFont' for='flexCheckDefault'>\
-                            <i class='fa-solid fa-clock'></i>\
-                             "+ dateOfAppointment.getHours() + ":" + minutes + " - " + endOfAppointment + "</label>\
-                             </div>\
-                             <span class='badge rounded-pill design'>"+ dateOfAppointment.getDate() + " / " + dateOfAppointment.getMonth() + " / " + dateOfAppointment.getFullYear() + "</span>\
-                             </li>");
-                            
-                
-                        })
-                        $('#appointmentCreateModal').modal('show');
-                        $('form').on('submit', function(){
-                            var obj = $('form').serializeJSON()
+                    $('.list-group').append("<li class='list-group-item d-flex justify-content-between align-items-center'>\
+                    <div class='form-check'>\
+                    <input class='form-check-input' name='appointmentNumber' type='checkbox' value='1' id='flexCheckDefault'>\
+                    <label class='form-check-label darkFont' for='flexCheckDefault'>\
+                    <i class='fa-solid fa-clock'></i>\
+                    "+ dateOfAppointment.getHours() + ":" + minutes + " - " + endOfAppointment + "</label>\
+                    </div>\
+                    <span class='badge rounded-pill design'>"+ dateOfAppointment.getDate() + " / " + dateOfAppointment.getMonth() + " / " + dateOfAppointment.getFullYear() + "</span>\
+                    </li>");
 
-                             console.log(obj);
-                            
-                             return false;
-                         });
-
-                    }
-
-                    
                 })
+                $('#appointmentCreateModal').modal('show');
+                $('form').on('submit', function(){
+                    var obj = $('form').serializeJSON()
+
+                    console.log(obj);
+                            
+                    return false;
+                });
+               
         }
     });
 
