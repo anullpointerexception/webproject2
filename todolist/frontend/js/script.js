@@ -173,22 +173,15 @@ function loadAppointmentsWithChoices(id){
                 var endOfAppointment = calculateDuration(userByGroup[0]["duration"], dateOfAppointment);
 
                 const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
+                var accordionChild = "<div class='card'>";
+                accordionChild += "<div class='card-header' id='heading"+i+"'>";
+                accordionChild += "<h5 class='mb-0'>"
+                accordionChild += "<button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='true' aria-controls='collapseOne'>";
+                accordionChild +=  "Timeslot: " + dateOfAppointment.getHours() + ":" + minutes + " - " + endOfAppointment;
+                accordionChild +=  "</button></h5></div>";
+                accordionChild +=  "<div id='collapse"+i+"' class='collapse' aria-labelledby='headingOne' data-parent='#accordion'>";
+                accordionChild +=  "<div class='card-body'><div id='carouselParticipantControls"+i+"' class='carousel slide' data-ride='carousel'><div class='carousel-inner' id='carousel-inner"+i+"'>"
 
-
-                $('#accordion').append(
-                "<div class='card'>\
-                <div class='card-header' id='heading"+i+"'>\
-                  <h5 class='mb-0'>\
-                    <button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='true' aria-controls='collapseOne'>"
-                    + "Timeslot: " + dateOfAppointment.getHours() + ":" + minutes + " - " + endOfAppointment + 
-                    "</button>\
-                  </h5>\
-                </div>\
-                <div id='collapse"+i+"' class='collapse' aria-labelledby='headingOne' data-parent='#accordion'>\
-                  <div class='card-body'>\
-                      <div id='carouselParticipantControls"+i+"' class='carousel slide' data-ride='carousel'>\
-                          <div class='carousel-inner' id='carousel-inner"+i+"'>"
-                );
 
                 var container = 0;
 
@@ -199,46 +192,32 @@ function loadAppointmentsWithChoices(id){
                     var carousel = '#carousel-inner'+i;
 
                     if(container === 0){
-                         
-                        $(carousel).append(
-                        "<div class='carousel-item active'>\
-                                                    <table width='100%' class='section-heading primary'>\
-                                                       <thead>\
-                                                           <th>" + userByGroup[j]['name'] +"</th>\
-                                                       </thead>\
-                                                       <tbody>\
-                                                           <td>" + userByGroup[j]['comment'] + "</td>\
-                                                       </tbody>\
-                                                    </table>\
-                        </div>");
+                        // $(carousel).append(
+                        accordionChild += "<div class='carousel-item active'><table width='100%' class='section-heading primary'><thead><th>" + userByGroup[j]['name'] +"</th></thead><tbody><td>" + userByGroup[j]['comment'] + "</td></tbody></table></div>";
                         container++;
 
                     } else {
-                        $(carousel).append(
-                            "<div class='carousel-item'>\
-                                                        <table width='100%' class='section-heading primary'>\
-                                                           <thead>\
-                                                               <th>"+ userByGroup[j]['name'] +"</th>\
-                                                           </thead>\
-                                                           <tbody>\
-                                                               <td>" + userByGroup[j]['comment'] + "</td>\
-                                                           </tbody>\
-                                                        </table>\
-                            </div>");
+                        
+                        accordionChild += "<div class='carousel-item'><table width='100%' class='section-heading primary'><thead><th>" + userByGroup[j]['name'] +"</th></thead><tbody><td>" + userByGroup[j]['comment'] + "</td></tbody></table></div>";
+                        container++;
 
                     }
                     
                     
 
                 }
+                accordionChild += "</div>";
+                accordionChild += "<a class='carousel-control-prev indicatorsBlack' href='#carouselParticipantControls"+i+"' role='button' data-slide='prev'>";
+                accordionChild += "<span class='carousel-control-prev-icon' aria-hidden='true'></span>";
+                accordionChild += "<span class='sr-only darkFont'>Previous</span>";
+                accordionChild += "</a>";
+                accordionChild += "<a class='carousel-control-next indicatorsBlack' href='#carouselParticipantControls"+i+"' role='button' data-slide='next'>";
+                accordionChild += "<span class='carousel-control-next-icon' aria-hidden='true'></span>";
+                accordionChild += "<span class='sr-only darkFont'>Next</span>";
+                accordionChild += "</a></div></div></div></div>";
+                $('#accordion').append(accordionChild);
 
-                $('#accordion').append(
-                    "</div>\
-                    </div>\
-                    </div>\
-                    </div>\
-                    </div>"
-                );
+                
                 $('.carousel').carousel()
 
 
