@@ -320,11 +320,11 @@
             
 
             $(document).on('click','.calendar-widget-content',function(){
-                loadVoteDetails(this.id);
+                loadAppointmentsWithChoices(this.id);
 
             });
             $(document).on('click','.createAppoint',function(){
-                loadAppointmentsWithChoices(this.id);   
+                loadVoteDetails(this.id);
             });
         });
        
