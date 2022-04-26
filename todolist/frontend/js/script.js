@@ -140,6 +140,27 @@ function loadAppointmentsWithChoices(id){
             $('#locationModalNormal').html("<i class='fa-solid fa-location-pin'></i> " + result[0].location);
             $('#titleModalNormal').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
 
+
+            var currentDate = new Date();
+
+            var dbExpirationDate = result[0].expirationdate;
+
+            var x = dbExpirationDate.split(/[- :]/);
+
+            var expirationdate = new Date(x[0], x[1], x[2], x[3], x[4], x[5]);
+
+
+            if(currentDate > expirationdate){
+                $('#statusModalNormal').html("Voting: <i class='fa-solid fa-lock'></i> closed");
+            } else {
+                $('#statusModalNormal').html("Voting: <i class='fa-solid fa-lock-open ></i> open ");
+            }
+
+
+
+            $('#titleModalNormal').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
+
+
             $.each(result, function(x, user){
                 users.push(user);
             });
@@ -155,6 +176,7 @@ function loadAppointmentsWithChoices(id){
                 var userByGroup = grouped.get(x);
 
                 var termin = userByGroup[0]["termin"].split(/[- :]/);
+
 
                 var dateOfAppointment = new Date(termin[0], termin[1], termin[2], termin[3], termin[4], termin[5]);
 
@@ -267,13 +289,7 @@ function loadAppointments(){
                         
                         tableTop.appendChild(th);
                         var termin = appointments[item]["expirationdate"].split(/[- :]/);
-
-                        console.log(appointments[item]["expirationdate"]);
-
                         var expirationdate = new Date(termin[0], termin[1], termin[2], termin[3], termin[4], termin[5]);
-
-                        console.log(currentDate);
-                        console.log(expirationdate);
 
                         var td = document.createElement('td');
                         if(currentDate > expirationdate){
@@ -282,7 +298,7 @@ function loadAppointments(){
                             button.setAttribute("class", "btn btn-default btn-xl");
                             button.setAttribute("type", "button");
                             button.setAttribute("id", "button" + appointments[item]["id"]);
-                            button.innerHTML = "Vote not possible <i class='fa-solid fa-x'></i></i>";
+                            button.innerHTML = "Expired <i class='fa-solid fa-x'></i></i>";
 
                         } else {
                             td.setAttribute('class', "calendar-widget open");
@@ -290,7 +306,7 @@ function loadAppointments(){
                             button.setAttribute("class", "btn btn-default btn-xl createAppoint");
                             button.setAttribute("type", "button");
                             button.setAttribute("id", "button" + appointments[item]["id"]);
-                            button.innerHTML = "Vote<i class='fa-solid fa-check-to-slot'></i>";
+                            button.innerHTML = "Vote <i class='fa-solid fa-check-to-slot'></i>";
                         }
 
                         td.setAttribute('id', 'calendar-widget' + item);
