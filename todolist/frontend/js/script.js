@@ -140,26 +140,21 @@ function loadAppointmentsWithChoices(id){
             $('#locationModalNormal').html("<i class='fa-solid fa-location-pin'></i> " + result[0].location);
             $('#titleModalNormal').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
 
-
             var currentDate = new Date();
 
             var dbExpirationDate = result[0].expirationdate;
 
-            var x = dbExpirationDate.split(/[- :]/);
+            console.log(result[0].expirationdate);
 
-            var expirationdate = new Date(x[0], x[1], x[2], x[3], x[4], x[5]);
+            var s = dbExpirationDate.split(/[- :]/);
 
+            var expirationdate = new Date(s[0], s[1], s[2], s[3], s[4], s[5]);
 
             if(currentDate > expirationdate){
-                $('#statusModalNormal').html("Voting: <i class='fa-solid fa-lock'></i> closed");
+                $('#statusModalNormal').html("Voting: closed <i class='fa-solid fa-lock'></i>");
             } else {
-                $('#statusModalNormal').html("Voting: <i class='fa-solid fa-lock-open ></i> open ");
+                $('#statusModalNormal').html("Voting: open <i class='fa-solid fa-lock-open'></i>");
             }
-
-
-
-            $('#titleModalNormal').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
-
 
             $.each(result, function(x, user){
                 users.push(user);
@@ -176,7 +171,6 @@ function loadAppointmentsWithChoices(id){
                 var userByGroup = grouped.get(x);
 
                 var termin = userByGroup[0]["termin"].split(/[- :]/);
-
 
                 var dateOfAppointment = new Date(termin[0], termin[1], termin[2], termin[3], termin[4], termin[5]);
 
