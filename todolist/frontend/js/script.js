@@ -1,4 +1,3 @@
-var s = 0;
 
 (function($) {
     "use strict"; // Start of use strict
@@ -238,7 +237,9 @@ function loadAppointments(){
                 appointments.push(v);
                 counter++;
             });
-
+            if(counter === 0){
+                ('#inner').append('<div><h5>No current Appointments</h5></div>');
+            } else {
             var currentDate = new Date();
 
             // bisschen mathematik um den Count für die Tabelle zu ermitteln
@@ -391,11 +392,13 @@ function loadAppointments(){
                     container++;
                 }
             }
+        }
 
         },
         error: function(error){
             console.log(error);
         }
+    
     })
 
 }
