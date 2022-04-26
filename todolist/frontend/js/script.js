@@ -40,19 +40,13 @@ var s = 0;
 const appointments = [];
 
 function calculateDuration(duration, time){
-
     var num = duration;
     var hours = (num / 60);
     var rhours = Math.floor(hours);
     var minutes = (hours - rhours) * 60;
     var rminutes = Math.round(minutes);
-
-    console.log(rhours + " hours" + rminutes + " minutes");
-
     var newHours = time.getHours() + rhours;
-
     var newMinutes = String(time.getMinutes() + rminutes).padStart(2, '0');
-
     var endDate = newHours + ":" + newMinutes;
     return endDate;
 }
@@ -210,7 +204,6 @@ function loadAppointmentsWithChoices(id){
 
 function loadAppointments(){
     var counter = 0;
-    var items = 0;
     var container = 0;
     var item = 0;
 
@@ -229,6 +222,8 @@ function loadAppointments(){
                 appointments.push(v);
                 counter++;
             });
+
+            var currentDate = new Date();
 
             // bisschen mathematik um den Count für die Tabelle zu ermitteln
             // Bedeutet: Falls die Division durch 3 einen Rest ergibt soll der integer part der anzahl genommen werden und + 1 addiert werden, damit auch keine
@@ -250,10 +245,12 @@ function loadAppointments(){
                 }
                 if(container == 0){
                     var citem = document.createElement('div');
+
                     citem.setAttribute("class", "carousel-item active");
                     var table = document.createElement("table");
                     table.setAttribute("width", "100%");
                     var tableTop = document.createElement('thead');
+
                     tableTop.setAttribute("id", "calendar-top" + container);
                     tableTop.setAttribute("class", "calendar-top");
                     var tableBody = document.createElement('tbody');
@@ -269,10 +266,32 @@ function loadAppointments(){
                         th.setAttribute("id", "th" + appointments[item]["id"]);
                         
                         tableTop.appendChild(th);
+                        var termin = appointments[item]["expirationdate"].split(/[- :]/);
+
+                        console.log(appointments[item]["expirationdate"]);
+
+                        var expirationdate = new Date(termin[0], termin[1], termin[2], termin[3], termin[4], termin[5]);
+
+                        console.log(currentDate);
+                        console.log(expirationdate);
 
                         var td = document.createElement('td');
+                        if(currentDate > expirationdate){
+                            td.setAttribute('class', "calendar-widget closed");
+                            var button = document.createElement("button");
+                            button.setAttribute("class", "btn btn-default btn-xl");
+                            button.setAttribute("type", "button");
+                            button.setAttribute("id", "button" + appointments[item]["id"]);
+                            button.innerHTML = "Vote not possible <i class='fa-solid fa-x'></i></i>";
 
-                        td.setAttribute('class', "calendar-widget open");
+                        } else {
+                            td.setAttribute('class', "calendar-widget open");
+                            var button = document.createElement("button");
+                            button.setAttribute("class", "btn btn-default btn-xl createAppoint");
+                            button.setAttribute("type", "button");
+                            button.setAttribute("id", "button" + appointments[item]["id"]);
+                            button.innerHTML = "Vote<i class='fa-solid fa-check-to-slot'></i>";
+                        }
 
                         td.setAttribute('id', 'calendar-widget' + item);
 
@@ -281,15 +300,8 @@ function loadAppointments(){
                         div.setAttribute("class", "calendar-widget-content");
                         div.setAttribute("id", "div" + appointments[item]["id"]);
 
-                        //div.appendChild(br);
-                        //div.appendChild(divTextNode);
                         div.innerHTML = "<br>" + appointments[item]["expirationdate"] + "<br><br>";
 
-                        var button = document.createElement("button");
-                        button.setAttribute("class", "btn btn-default btn-xl createAppoint");
-                        button.setAttribute("type", "button");
-                        button.setAttribute("id", "button" + appointments[item]["id"]);
-                        button.innerHTML = "Vote <i class='fa-solid fa-check-to-slot'></i>";
                         var br = document.createElement("br");
                         var br2 = document.createElement("br");
 
