@@ -120,6 +120,11 @@ function groupBy(list, keyGetter) {
     return map;
 }
 
+function deleteAppointment(deleteID){
+    console.log(deleteID);
+    
+}
+
 function loadAppointmentsWithChoices(id){
     var users = [];
     var paramID = parseInt(id.replace("div", ""));
@@ -138,6 +143,7 @@ function loadAppointmentsWithChoices(id){
             $('#durationModalNormal').html("<i class='fa-solid fa-clock'></i> " + result[0].duration + " Minutes");
             $('#locationModalNormal').html("<i class='fa-solid fa-location-pin'></i> " + result[0].location);
             $('#titleModalNormal').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
+
 
             var currentDate = new Date();
 
@@ -211,11 +217,25 @@ function loadAppointmentsWithChoices(id){
                 accordionChild += "</a></div></div></div></div>";
                 $('#accordion').append(accordionChild);
                 $('.carousel').carousel()
-            } 
+            }
+            $('.modal-body').append("<br><input type='button' id='delete"+paramID+"' class='btn btn-danger btn-lg btn-block delete-button' value='Delete appointment'>");
+            $('.delete-button').on('click', function (){
+                $.ajax({
+                    type: 'DELETE',
+                    url: "../backend/serviceHandler.php?method=deleteAppointment&param="+paramID+"",
+                    cache: false,
+                    success: function (result){
+                        console.log("Removed successfully!");
+                        setInterval('location.reload()', 7000);
+                    }
+                });
+            });
             $('#appointmentModal').modal('show');
         }
     })
 }
+
+
 
 function loadAppointments(){
     var counter = 0;
