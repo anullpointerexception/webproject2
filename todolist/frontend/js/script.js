@@ -150,9 +150,9 @@ function loadAppointmentsWithChoices(id){
             var expirationdate = new Date(s[0], s[1], s[2], s[3], s[4], s[5]);
 
             if(currentDate > expirationdate){
-                $('#statusModalNormal').html("Voting: closed <i class='fa-solid fa-lock'></i>");
+                $('#statusModalNormal').html("<i class='fas fa-vote-yea'></i> Voting: closed <i class='fa-solid fa-lock'></i>");
             } else {
-                $('#statusModalNormal').html("Voting: open <i class='fa-solid fa-lock-open'></i>");
+                $('#statusModalNormal').html("<i class='fas fa-vote-yea'></i> Voting: open <i class='fa-solid fa-lock-open'></i>");
             }
 
         }
@@ -339,7 +339,9 @@ function loadAppointments(){
                         div.setAttribute("class", "calendar-widget-content");
                         div.setAttribute("id", "div" + appointments[item]["id"]);
 
-                        div.innerHTML = "<br>" + appointments[item]["expirationdate"] + "<br><br>";
+
+
+                        div.innerHTML = "<br>Expires @ " + expirationdate.getDate() + "." +  expirationdate.getMonth() + "." + expirationdate.getFullYear() + " " + expirationdate.getHours() + ":" + expirationdate.getMinutes() + "<br><br>";
 
                         var br = document.createElement("br");
                         var br2 = document.createElement("br");
@@ -424,6 +426,7 @@ function loadAppointments(){
         },
         error: function(error){
             console.log(error);
+            ('#inner').append('<div><h5>No current Appointments</h5></div>');
         }
     
     })
