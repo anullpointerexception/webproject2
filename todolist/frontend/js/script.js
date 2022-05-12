@@ -73,6 +73,9 @@ function loadVoteDetails(id){
 
                     var termin = li["termin"].split(/[- :]/);
 
+                    console.log(li["id"]);
+
+
                     var dateOfAppointment = new Date(termin[0], termin[1], termin[2], termin[3], termin[4], termin[5]);
 
                     const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
@@ -81,7 +84,7 @@ function loadVoteDetails(id){
    
                     $('.list-group').append("<li class='list-group-item d-flex justify-content-between align-items-center'>\
                     <div class='form-check'>\
-                    <input class='form-check-input' name='appointmentNumber' type='checkbox' value='1' id='flexCheckDefault'>\
+                    <input class='form-check-input' name='appointment_choices_id' type='checkbox' value='"+li["id"]+"' id='flexCheckDefault'>\
                     <label class='form-check-label darkFont' for='flexCheckDefault'>\
                     <i class='fa-solid fa-clock'></i>\
                     "+ dateOfAppointment.getHours() + ":" + minutes + " - " + endOfAppointment + "</label>\
