@@ -30,7 +30,6 @@
         }
     );
 
-
     // Initialize WOW.js Scrolling Animations
     new WOW().init();
 
@@ -49,9 +48,6 @@ function calculateDuration(duration, time){
     var endDate = newHours + ":" + newMinutes;
     return endDate;
 }
-
-
-
 
 function loadVoteDetails(id){
     // to remove 'button' from id;
@@ -120,11 +116,6 @@ function groupBy(list, keyGetter) {
     return map;
 }
 
-function deleteAppointment(deleteID){
-    console.log(deleteID);
-    
-}
-
 function loadAppointmentsWithChoices(id){
     var users = [];
     var paramID = parseInt(id.replace("div", ""));
@@ -143,7 +134,6 @@ function loadAppointmentsWithChoices(id){
             $('#durationModalNormal').html("<i class='fa-solid fa-clock'></i> " + result[0].duration + " Minutes");
             $('#locationModalNormal').html("<i class='fa-solid fa-location-pin'></i> " + result[0].location);
             $('#titleModalNormal').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
-
 
             var currentDate = new Date();
 
@@ -235,13 +225,10 @@ function loadAppointmentsWithChoices(id){
     })
 }
 
-
-
 function loadAppointments(){
     var counter = 0;
     var container = 0;
     var item = 0;
-
 
     $.ajax({
         type: "GET",
@@ -413,12 +400,10 @@ function loadAppointments(){
                 }
             }
         }
-
         },
         error: function(error){
             console.log(error);
         }
     
     })
-
 }
