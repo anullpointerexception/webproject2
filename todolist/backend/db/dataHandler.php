@@ -37,18 +37,26 @@ class DataHandler
         return $rows; 
     }
 
-    public function addAppointment($data){
-        echo "\nHallo: ".$data->name;
-        return "test";
-        /* $stmt=$this->db->mysqli->prepare("INSERT INTO appointments(title, location, expirationdate, duration) VALUES(?,?,?,?)");
-        $data->expirationdate=date('YYYY-mm-dd HH:ii:ss');
+    public function addAppointment(){
+        $data=json_decode(file_get_contents('php://input')); //get body data 
+        
+        $stmt=$this->db->mysqli->prepare("INSERT INTO appointments(title, location, expirationdate, duration) VALUES(?,?,?,?)");
+        $data->expirationdate=date('Y-m-d H:i:s');
         $stmt->bind_param('sssi', $data->title, $data->location, $data->expirationdate, $data->duration);
         $stmt->execute();
         if($stmt->error){
             return null;
         }else{
             return "success";
-        } */
+        } 
+    }
+
+    public function addUserChoice(){
+        $data=json_decode(file_get_contents('php://input'));
+        
+
+
+        return "test";
     }
 
     public function deleteAppointment($id){
