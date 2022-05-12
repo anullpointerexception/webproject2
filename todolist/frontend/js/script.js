@@ -119,22 +119,24 @@ function groupBy(list, keyGetter) {
 function loadAppointmentsWithChoices(id){
     var users = [];
     var paramID = parseInt(id.replace("div", ""));
-
+    $('#accordion').children().remove();
     $.ajax({
         type: "GET",
         url: "../backend/serviceHandler.php",
         cache: false,
         data: {
-            method: "getAppointmentDetails_withUC",
+            method: "getAppointmentDetails",
             param: paramID
         },
         dataType: "json",
         success: function(result){
+
+
             $('#headerModalNormal').text(result[0].title);
             $('#durationModalNormal').html("<i class='fa-solid fa-clock'></i> " + result[0].duration + " Minutes");
             $('#locationModalNormal').html("<i class='fa-solid fa-location-pin'></i> " + result[0].location);
             $('#titleModalNormal').html("<i class='fa-solid fa-diamond'></i> " + result[0].title);
-
+            
             var currentDate = new Date();
 
             var dbExpirationDate = result[0].expirationdate;
@@ -151,14 +153,25 @@ function loadAppointmentsWithChoices(id){
                 $('#statusModalNormal').html("Voting: open <i class='fa-solid fa-lock-open'></i>");
             }
 
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: "../backend/serviceHandler.php",
+        cache: false,
+        async: true,
+        data: {
+            method: "getAppointmentDetails_withUC",
+            param: paramID
+        },
+        dataType: "json",
+        success: function(result){
             $.each(result, function(x, user){
                 users.push(user);
             });
 
             const grouped = groupBy(users, userX => userX.terminid);
-            
-            $('#accordion').children().remove();
-            
+                        
             for (var i = 0; i < grouped.size; i++) {
                 
                 var x = users[i].terminid;
@@ -204,12 +217,21 @@ function loadAppointmentsWithChoices(id){
                 accordionChild += "<a class='carousel-control-next indicatorsBlack' href='#carouselParticipantControls"+i+"' role='button' data-slide='next'>";
                 accordionChild += "<span class='carousel-control-next-icon' aria-hidden='true'></span>";
                 accordionChild += "<span class='sr-only darkFont'>Next</span>";
-                accordionChild += "</a></div></div></div></div>";
+                accordionChild += "</a></div></div></div></div><br>";
                 $('#accordion').append(accordionChild);
                 $('.carousel').carousel()
             }
-            $('.modal-body').append("<br><input type='button' id='delete"+paramID+"' class='btn btn-danger btn-lg btn-block delete-button' value='Delete appointment'>");
-            $('.delete-button').on('click', function (){
+            
+        },
+        error: function(){
+
+            $('.errorDiv').children().remove();
+            $('.errorDiv').append("<p class='text-faded errorBox'>No current participants found!</p>");
+        }
+    });
+    $('.delete-button').remove();
+    $('.detailModal').append("<input type='button' id='delete"+paramID+"' class='btn btn-danger btn-lg btn-block delete-button' value='Delete appointment'>");
+    $('.delete-button').on('click', function (){
                 $.ajax({
                     type: 'DELETE',
                     url: "../backend/serviceHandler.php?method=deleteAppointment&param="+paramID+"",
@@ -219,10 +241,8 @@ function loadAppointmentsWithChoices(id){
                         setInterval('location.reload()', 7000);
                     }
                 });
-            });
-            $('#appointmentModal').modal('show');
-        }
-    })
+    });
+    $('#appointmentModal').modal('show');
 }
 
 function loadAppointments(){
