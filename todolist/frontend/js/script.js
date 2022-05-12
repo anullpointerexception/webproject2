@@ -273,7 +273,6 @@ function loadAppointments(){
             } else {
                 var newCount = n;
             }
-            console.log("Hallo");
 
             for(var i = 0; i < newCount; i++){
                 if((counter - 3) > 0){
