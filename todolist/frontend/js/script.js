@@ -120,6 +120,8 @@ function loadAppointmentsWithChoices(id){
     var users = [];
     var paramID = parseInt(id.replace("div", ""));
     $('#accordion').children().remove();
+    $('.errorDiv').children().remove();
+
     $.ajax({
         type: "GET",
         url: "../backend/serviceHandler.php",
@@ -225,7 +227,6 @@ function loadAppointmentsWithChoices(id){
         },
         error: function(){
 
-            $('.errorDiv').children().remove();
             $('.errorDiv').append("<p class='text-faded errorBox'>No current participants found!</p>");
         }
     });
