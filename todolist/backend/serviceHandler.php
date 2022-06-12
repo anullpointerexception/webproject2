@@ -12,6 +12,7 @@ isset($_GET["param"]) ? $param = $_GET["param"] : false;
 //echo "\n" . $_SERVER['REQUEST_METHOD'] . "\n";
 //echo "\n" . $method . "\n";
 
+
 $logic = new SimpleLogic();
 $result = $logic->handleRequest($method, $param, $_SERVER['REQUEST_METHOD']);
 if ($result == null) {
