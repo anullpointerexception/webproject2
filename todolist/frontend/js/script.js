@@ -37,6 +37,8 @@
 
 const appointments = [];
 
+var chosenTimes = [];
+
 function calculateDuration(duration, time){
     var num = duration;
     var hours = (num / 60);
@@ -47,6 +49,101 @@ function calculateDuration(duration, time){
     var newMinutes = String(time.getMinutes() + rminutes).padStart(2, '0');
     var endDate = newHours + ":" + newMinutes;
     return endDate;
+}
+
+function addItem(){
+   
+    if($('#chosenHour').val().length === 0 || $('#chosenMin').val().length === 0 || $('#chosenYear').val().length === 0 || $('#chosenMonth').val().length === 0 || $('#chosenDay').val().length === 0){
+        alert("Please fill out the timeslot fields!");
+    } else {
+        let chosenTimeSlot = $('#chosenYear').val() + "-" + $('#chosenMonth').val()+ "-" +  $('#chosenDay').val() + " " + $('#chosenHour').val() + ":" + $('#chosenMin').val() + ":00";
+        chosenTimes.push(chosenTimeSlot);
+        console.log(chosenTimes);
+        $('#timeslots').append("<li>" + chosenTimeSlot + "</li>");
+        $("li:last-of-type").hide().slideDown();
+        $('#chosenHour').val("");
+        $('#chosenMin').val("");
+    }
+}
+
+
+function addNewAppointment(){   
+
+            var chosenTimesLength = chosenTimes.length;
+
+            if(chosenTimesLength > 0){
+                var appointmentObject= $('#appointmentCreateNew').serializeJSON();
+
+                delete appointmentObject["chosenHour"];
+                delete appointmentObject["chosenMin"];
+                delete appointmentObject["chosenYear"];
+                delete appointmentObject["chosenMonth"];
+                delete appointmentObject["chosenDay"];
+
+
+                var appointmentDate = new Date(appointmentObject["year"] + '/' + appointmentObject["month"] + "/" + appointmentObject["day"] + " " + appointmentObject["hour"] + ":"+ appointmentObject["min"] + ":00");
+
+                var mySQLDate = appointmentDate.toISOString().split('T')[0] + ' ' 
+                + appointmentDate.toTimeString().split(' ')[0];
+
+
+
+
+                appointmentObject.expirationdate = mySQLDate;
+
+                delete appointmentObject["day"];
+                delete appointmentObject["month"];
+                delete appointmentObject["year"];
+                delete appointmentObject["hour"];
+                delete appointmentObject["min"];
+
+                $.ajax({
+                    type: 'POST',
+                    url: "../backend/serviceHandler.php?method=addAppointment",
+                    cache: false,
+                    dataType: "json",
+                    data: JSON.stringify(appointmentObject),
+                    success: function (response){
+
+                        var timeslot = {};
+
+                        var timeSlotArray = [];
+
+
+                        for(var s = 0; s < chosenTimesLength; s++){
+                                timeslot.appointmentid = response.id;
+                                timeslot.termin = chosenTimes[s];
+                                timeSlotArray.push({...timeslot});
+                        }
+
+
+                        for(var x = 0; x < chosenTimesLength; x++){
+                            $.ajax({
+                                type: "POST",
+                                url: "../backend/serviceHandler.php?method=addUserChoice",
+                                cache: false,
+                                dataType: "json",
+                                data: JSON.stringify(timeSlotArray[x]),
+                                success: function(response){
+                                    console.log("success!");
+                                },
+                                error: function(error){
+                                    console.log(error);
+                                }
+                            })
+                        }
+
+
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+            });
+        } else {
+            console.log("Not enough timeslots present");
+
+        }
+        return false;
 }
 
 function loadVoteDetails(id){
@@ -72,9 +169,6 @@ function loadVoteDetails(id){
                 $.each(result, function(s, li){
 
                     var termin = li["termin"].split(/[- :]/);
-
-                    console.log(li["id"]);
-
 
                     var dateOfAppointment = new Date(termin[0], termin[1], termin[2], termin[3], termin[4], termin[5]);
 
@@ -387,24 +481,38 @@ function loadAppointments(){
                         th.setAttribute("id", "th" + appointments[item]["id"]);
                         
                         tableTop.appendChild(th);
+                        var termin = appointments[item]["expirationdate"].split(/[- :]/);
+                        var expirationdate = new Date(termin[0], termin[1], termin[2], termin[3], termin[4], termin[5]);
 
                         var td = document.createElement('td');
+                        if(currentDate > expirationdate){
+                            td.setAttribute('class', "calendar-widget closed");
+                            var button = document.createElement("button");
+                            button.setAttribute("class", "btn btn-default btn-xl");
+                            button.setAttribute("type", "button");
+                            button.setAttribute("id", "button" + appointments[item]["id"]);
+                            button.innerHTML = "Expired <i class='fa-solid fa-x'></i></i>";
 
-                        td.setAttribute('class', "calendar-widget open");
+                        } else {
+                            td.setAttribute('class', "calendar-widget open");
+                            var button = document.createElement("button");
+                            button.setAttribute("class", "btn btn-default btn-xl createAppoint");
+                            button.setAttribute("type", "button");
+                            button.setAttribute("id", "button" + appointments[item]["id"]);
+                            button.innerHTML = "Vote <i class='fa-solid fa-check-to-slot'></i>";
+                        }
+
                         td.setAttribute('id', 'calendar-widget' + item);
 
                         var div = document.createElement('div');
+
                         div.setAttribute("class", "calendar-widget-content");
                         div.setAttribute("id", "div" + appointments[item]["id"]);
 
-                        div.innerHTML = "<br>" + appointments[item]["expirationdate"] + "<br><br>";
 
-                        var button = document.createElement("button");
-                        button.setAttribute("class", "btn btn-default btn-xl createAppoint");
-                        button.setAttribute("type", "button");
-                        button.setAttribute("id", "button" + appointments[item]["id"]);
+                        div.innerHTML = "<br>Expires @ " + expirationdate.getDate() + "." +  expirationdate.getMonth() + "." + expirationdate.getFullYear() + " " + expirationdate.getHours() + ":" + expirationdate.getMinutes() + "<br><br>";
 
-                        button.innerHTML = "Vote <i class='fa-solid fa-check-to-slot'></i>";
+
                         var br = document.createElement("br");
                         var br2 = document.createElement("br");
 

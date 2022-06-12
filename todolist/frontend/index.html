@@ -53,7 +53,7 @@
                     <h2 class="section-heading">Create a new appointment</h2>
                     <hr class="light">
                     <p class="text-faded">You want to create a new appointment and enable voting for different time slots? Just press the create button to create a new appointment.</p>
-                    <button type="button" id="createAppoint" class="btn btn-default btn-xl createAppoint"><i class="fa-solid fa-plus"></i> CREATE NEW APPOINTMENT</button>
+                    <button type="button" id="createNewAppoint" class="btn btn-default btn-xl createNewAppoint"><i class="fa-solid fa-plus"></i> CREATE NEW APPOINTMENT</button>
                 </div>
             </div>
         </div>
@@ -149,6 +149,73 @@
                             
         
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="appointmentCreateNewModal" tabindex="-1" role="dialog" aria-labelledby="appointmentViewModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog d-flex flex-column justify-content-center my-0" role="document">
+            <form method="post" id="appointmentCreateNew" action="#">
+            <div class="modal-content rounded-10">
+                <div class="container">
+                    <div class="row justify-content-center design newAppoint">
+                        <div class="text-center">
+                            
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="createNewName">
+                                        <h5>Appointment Name: </h5>
+                                    </label>
+                                    <input type="text" class="form-control" name="title" id="newTitle" aria-describedby="newTitleHelp" placeholder="Enter appointment title..." required>    
+                                </div>
+                                <div class="form-group">
+                                    <label for="createNewName">
+                                        <h5>Appointment Location: </h5>
+                                    </label>
+                                    <input type="text" class="form-control" name="location" id="newLocation" aria-describedby="newLocationHelp" placeholder="Enter appointment location..." required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createNewName">
+                                        <h5>Appointment Duration: </h5>
+                                    </label>
+                                    <input type="text" class="form-control" name="duration" id="newDuration" aria-describedby="newDurationHelp" placeholder="Enter appointment duration..." required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="createNewName">
+                                        <h5>Expiration Date: </h5>
+                                    </label>
+                                    <input type="number" class="form-control" name="day" id="newExpirateDay" aria-describedby="newDurationHelp" placeholder="Enter Expiration Day..." required> <br>
+                                    <input type="number" class="form-control" name="month" id="newExpirationMonth" aria-describedby="newDurationHelp" placeholder="Enter Expiration Month..." required> <br>
+                                    <input type="number" class="form-control" name="year" id="newExpirateYear" aria-describedby="newDurationHelp" placeholder="Enter Expiration Year..." required> <br>
+                                    <input type="number" class="form-control" name="hour" id="newExpirateHour" aria-describedby="newDurationHelp" placeholder="Enter Expiration Hour..." required> <br>
+                                    <input type="number" class="form-control" name="min" id="newExpirateMin" aria-describedby="newDurationHelp" placeholder="Enter Expiration Min..." required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="timeOptions">
+                                        <h5>Available Time Slots</h5>
+                                    </label>
+                                    <input type="number" class="form-control" name="chosenDay" id="chosenDay" aria-describedby="newDurationHelp" placeholder="Enter timeslot Day..."> <br>
+                                    <input type="number" class="form-control" name="chosenMonth" id="chosenMonth" aria-describedby="newDurationHelp" placeholder="Enter timeslot Month..."> <br>
+                                    <input type="number" class="form-control" name="chosenYear" id="chosenYear" aria-describedby="newDurationHelp" placeholder="Enter timeslot Year..."> <br>
+                                    <input type="number" class="form-control" name="chosenHour" id="chosenHour" aria-describedby="newDurationHelp" placeholder="Enter timeslot Hour..."> <br>
+                                    <input type="number" class="form-control" name="chosenMin" id="chosenMin" aria-describedby="newDurationHelp" placeholder="Enter timeslot Minute..."> <br>
+                                    <a href="#" id="add-timeslot" class="btn btn-primary">Add Timeslot</a>
+                                    <br>
+                                    <br>
+                                    <ol id="timeslots">
+                                    </ol>
+                                </div>
+
+
+                                <div class="modal-footer">
+                                    <input type="submit" name="submitNewAppointment" class="btn btn-default btn-xl" value="Submit choice">
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -287,7 +354,18 @@
                 alert(check);
                 return false;
             })
-            
+            $(document).on('click','.createNewAppoint',function(){
+                $('#appointmentCreateNewModal').modal("show");
+            });
+
+            $(document).on('submit', '#appointmentCreateNew', function(){
+                addNewAppointment();
+                event.preventDefault();
+                return false;
+            });
+
+            $("#add-timeslot").on("click", addItem),
+
 
             $(document).on('click','.calendar-widget-content',function(){
                 loadAppointmentsWithChoices(this.id);
@@ -297,6 +375,8 @@
                 loadVoteDetails(this.id);
             });
         });
+
+        
        
     </script>
 

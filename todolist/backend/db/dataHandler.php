@@ -41,22 +41,27 @@ class DataHandler
         $data=json_decode(file_get_contents('php://input')); //get body data 
         
         $stmt=$this->db->mysqli->prepare("INSERT INTO appointments(title, location, expirationdate, duration) VALUES(?,?,?,?)");
-        $data->expirationdate=date('Y-m-d H:i:s');
         $stmt->bind_param('sssi', $data->title, $data->location, $data->expirationdate, $data->duration);
+        $stmt->execute();
+        $lastid = $this->db->mysqli->insert_id;
+        if($stmt->error){
+            return null;
+        }else{
+            return "{\"msg\":\"success\", \"id\" : $lastid }";
+        }
+    }
+
+
+    public function addUserChoice(){
+        $data=json_decode(file_get_contents('php://input'));
+        $stmt=$this->db->mysqli->prepare("INSERT INTO appointment_choices(appointmentid, termin) VALUES(?,?)");
+        $stmt->bind_param('is', $data->appointmentid, $data->termin);
         $stmt->execute();
         if($stmt->error){
             return null;
         }else{
-            return "success";
-        } 
-    }
-
-    public function addUserChoice(){
-        $data=json_decode(file_get_contents('php://input'));
-        
-
-
-        return "test";
+            return "{\"msg\":\"success\"}";
+        }
     }
 
     public function deleteAppointment($id){
