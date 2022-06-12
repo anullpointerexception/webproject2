@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- stylesheet for homepage -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" >
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="app.js"></script>
     <!-- js used for animations -->
@@ -165,44 +169,42 @@
                         <div class="text-center">
                             
                             <div class="modal-body">
+                                <h1>Create new appointment</h1>
+                                <hr class="light">
+                                <br>
                                 <div class="form-group">
                                     <label for="createNewName">
-                                        <h5>Appointment Name: </h5>
+                                        <h5>Appointment Name</h5>
                                     </label>
                                     <input type="text" class="form-control" name="title" id="newTitle" aria-describedby="newTitleHelp" placeholder="Enter appointment title..." required>    
                                 </div>
+                                <hr class="light">
                                 <div class="form-group">
                                     <label for="createNewName">
-                                        <h5>Appointment Location: </h5>
+                                        <h5>Appointment Location</h5>
                                     </label>
                                     <input type="text" class="form-control" name="location" id="newLocation" aria-describedby="newLocationHelp" placeholder="Enter appointment location..." required>
                                 </div>
+                                <hr class="light">
                                 <div class="form-group">
                                     <label for="createNewName">
-                                        <h5>Appointment Duration: </h5>
+                                        <h5>Appointment Duration</h5>
                                     </label>
                                     <input type="text" class="form-control" name="duration" id="newDuration" aria-describedby="newDurationHelp" placeholder="Enter appointment duration..." required>
                                 </div>
+                                <hr class="light">
                                 <div class="form-group">
                                     <label for="createNewName">
-                                        <h5>Expiration Date: </h5>
+                                        <h5>Expiration Date</h5>
                                     </label>
-                                    <input type="number" class="form-control" name="day" id="newExpirateDay" aria-describedby="newDurationHelp" placeholder="Enter Expiration Day..." required> <br>
-                                    <input type="number" class="form-control" name="month" id="newExpirationMonth" aria-describedby="newDurationHelp" placeholder="Enter Expiration Month..." required> <br>
-                                    <input type="number" class="form-control" name="year" id="newExpirateYear" aria-describedby="newDurationHelp" placeholder="Enter Expiration Year..." required> <br>
-                                    <input type="number" class="form-control" name="hour" id="newExpirateHour" aria-describedby="newDurationHelp" placeholder="Enter Expiration Hour..." required> <br>
-                                    <input type="number" class="form-control" name="min" id="newExpirateMin" aria-describedby="newDurationHelp" placeholder="Enter Expiration Min..." required>
+                                    <input type="text" class="form-control" name="expirationDate" id="newExpirateDate" aria-describedby="newDurationHelp" placeholder="Enter Expiration Day..." required> <br>
                                 </div>
-
+                                <hr class="light">
                                 <div class="form-group">
                                     <label for="timeOptions">
                                         <h5>Available Time Slots</h5>
                                     </label>
-                                    <input type="number" class="form-control" name="chosenDay" id="chosenDay" aria-describedby="newDurationHelp" placeholder="Enter timeslot Day..."> <br>
-                                    <input type="number" class="form-control" name="chosenMonth" id="chosenMonth" aria-describedby="newDurationHelp" placeholder="Enter timeslot Month..."> <br>
-                                    <input type="number" class="form-control" name="chosenYear" id="chosenYear" aria-describedby="newDurationHelp" placeholder="Enter timeslot Year..."> <br>
-                                    <input type="number" class="form-control" name="chosenHour" id="chosenHour" aria-describedby="newDurationHelp" placeholder="Enter timeslot Hour..."> <br>
-                                    <input type="number" class="form-control" name="chosenMin" id="chosenMin" aria-describedby="newDurationHelp" placeholder="Enter timeslot Minute..."> <br>
+                                    <input type="text" class="form-control" name="newTimeSlotDate" id="newTimeSlotDate" aria-describedby="newDurationHelp" placeholder="Enter TimeSlot Day..." required> <br>
                                     <a href="#" id="add-timeslot" class="btn btn-primary">Add Timeslot</a>
                                     <br>
                                     <br>
@@ -347,6 +349,15 @@
         </div>
     </section>
     <script>
+        jQuery(function($){
+            $('#newExpirateDate').datetimepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+            $('#newTimeSlotDate').datetimepicker({
+                dateFormat: 'yy-mm-dd'
+            })
+
+        });
         $(document).ready(function(){
             loadAppointments();
             $('.appointmentCheckBox').click(function () {

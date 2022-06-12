@@ -53,10 +53,10 @@ function calculateDuration(duration, time){
 
 function addItem(){
    
-    if($('#chosenHour').val().length === 0 || $('#chosenMin').val().length === 0 || $('#chosenYear').val().length === 0 || $('#chosenMonth').val().length === 0 || $('#chosenDay').val().length === 0){
+    if($('#newTimeSlotDate').val().length === 0){
         alert("Please fill out the timeslot fields!");
     } else {
-        let chosenTimeSlot = $('#chosenYear').val() + "-" + $('#chosenMonth').val()+ "-" +  $('#chosenDay').val() + " " + $('#chosenHour').val() + ":" + $('#chosenMin').val() + ":00";
+        let chosenTimeSlot = $('#newTimeSlotDate').val();
         chosenTimes.push(chosenTimeSlot);
         $('#timeslots').append("<li>" + chosenTimeSlot + "</li>");
         $("li:last-of-type").hide().slideDown();
@@ -80,10 +80,8 @@ function addNewAppointment(){
                 delete appointmentObject["chosenDay"];
 
 
-                var appointmentDate = new Date(appointmentObject["year"] + '/' + appointmentObject["month"] + "/" + appointmentObject["day"] + " " + appointmentObject["hour"] + ":"+ appointmentObject["min"] + ":00");
 
-                var mySQLDate = appointmentDate.toISOString().split('T')[0] + ' ' 
-                + appointmentDate.toTimeString().split(' ')[0];
+                var mySQLDate = appointmentObject["expirationDate"];
 
 
 
