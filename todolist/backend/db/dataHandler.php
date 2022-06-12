@@ -39,7 +39,6 @@ class DataHandler
 
     public function addAppointment(){
         $data=json_decode(file_get_contents('php://input')); //get body data 
-        
         $stmt=$this->db->mysqli->prepare("INSERT INTO appointments(title, location, expirationdate, duration) VALUES(?,?,?,?)");
         $stmt->bind_param('sssi', $data->title, $data->location, $data->expirationdate, $data->duration);
         $stmt->execute();
@@ -55,7 +54,6 @@ class DataHandler
         $data=json_decode(file_get_contents('php://input'));
         $stmt=$this->db->mysqli->prepare("INSERT INTO appointment_choices(appointmentid, termin) VALUES(?,?)");
         $stmt->bind_param('is', $data->appointmentid, $data->termin);
-
         $stmt->execute();
         if($stmt->error){ //return null on error f.e: appointmentid not in appointment table (foreign key cant reference)
             return null;
@@ -71,7 +69,6 @@ class DataHandler
         $stmt->bind_param('is', $data->appointment_choices_id, $data->name);
         $stmt->execute();
         $res=$stmt->get_result();
-        
         if($res->num_rows!==0){
             echo "user already voted";
             return null;

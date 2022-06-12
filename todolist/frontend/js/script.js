@@ -58,7 +58,6 @@ function addItem(){
     } else {
         let chosenTimeSlot = $('#chosenYear').val() + "-" + $('#chosenMonth').val()+ "-" +  $('#chosenDay').val() + " " + $('#chosenHour').val() + ":" + $('#chosenMin').val() + ":00";
         chosenTimes.push(chosenTimeSlot);
-        console.log(chosenTimes);
         $('#timeslots').append("<li>" + chosenTimeSlot + "</li>");
         $("li:last-of-type").hide().slideDown();
         $('#chosenHour').val("");
@@ -115,12 +114,12 @@ function addNewAppointment(){
                                 timeslot.termin = chosenTimes[s];
                                 timeSlotArray.push({...timeslot});
                         }
-
-
+                        console.log("Hello");
+                        console.log(timeSlotArray[0]);
                         for(var x = 0; x < chosenTimesLength; x++){
                             $.ajax({
                                 type: "POST",
-                                url: "../backend/serviceHandler.php?method=addUserChoice",
+                                url: "../backend/serviceHandler.php?method=addChoice",
                                 cache: false,
                                 dataType: "json",
                                 data: JSON.stringify(timeSlotArray[x]),
