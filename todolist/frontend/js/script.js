@@ -79,12 +79,7 @@ function addNewAppointment(){
                 delete appointmentObject["chosenMonth"];
                 delete appointmentObject["chosenDay"];
 
-
-
                 var mySQLDate = appointmentObject["expirationDate"];
-
-
-
 
                 appointmentObject.expirationdate = mySQLDate;
 
@@ -112,8 +107,6 @@ function addNewAppointment(){
                                 timeslot.termin = chosenTimes[s];
                                 timeSlotArray.push({...timeslot});
                         }
-                        console.log("Hello");
-                        console.log(timeSlotArray[0]);
                         for(var x = 0; x < chosenTimesLength; x++){
                             $.ajax({
                                 type: "POST",
@@ -174,7 +167,6 @@ function loadVoteDetails(id){
 
                     var endOfAppointment = calculateDuration(li["duration"], dateOfAppointment);
 
-                    console.log(li);
    
                     $('.list-group').append("<li class='list-group-item d-flex justify-content-between align-items-center'>\
                     <div class='form-check'>\
@@ -197,7 +189,6 @@ function loadVoteDetails(id){
                     delete userChoice["location"];
                     delete userChoice["title"];
 
-                    console.log(userChoice);
 
                     $.ajax({
                         type: "POST",
@@ -260,8 +251,6 @@ function loadAppointmentsWithChoices(id){
             var currentDate = new Date();
 
             var dbExpirationDate = result[0].expirationdate;
-
-            console.log(result[0].expirationdate);
 
             var s = dbExpirationDate.split(/[- :]/);
 
@@ -356,7 +345,7 @@ function loadAppointmentsWithChoices(id){
                     url: "../backend/serviceHandler.php?method=deleteAppointment&param="+paramID+"",
                     cache: false,
                     success: function (result){
-                        console.log("Removed successfully!");
+                        alert("Removed successfully!");
                         setInterval('location.reload()', 7000);
                     }
                 });
@@ -559,7 +548,6 @@ function loadAppointments(){
         }
         },
         error: function(error){
-            console.log(error);
             ('#inner').append('<div><h5>No current Appointments</h5></div>');
         }
     
