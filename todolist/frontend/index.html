@@ -27,6 +27,11 @@
             <div class="header-content-inner">
                 <h1>Your current appointments</h1>
                 <hr>
+                <h4>Current Date: </h4>
+                <h4 id="date"></h4>
+                <h4>Current time: </h4>
+                <h4 id="time"></h4>
+                <hr>
                 <div class="content" id="carousel-content">
                     <div id="carAppointControls" class="carousel slide" data-ride="carousel">
                         
@@ -56,7 +61,7 @@
                 <div class="text-center">
                     <h2 class="section-heading">Create a new appointment</h2>
                     <hr class="light">
-                    <p class="text-faded">You want to create a new appointment and enable voting for different time slots? Just press the create button to create a new appointment.</p>
+                    <p class="text-faded">You want to create a new appointment and enable voting for different time slots? Just press the button below to create a new appointment.</p>
                     <button type="button" id="createNewAppoint" class="btn btn-default btn-xl createNewAppoint"><i class="fa-solid fa-plus"></i> CREATE NEW APPOINTMENT</button>
                 </div>
             </div>
@@ -338,7 +343,7 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">About AppointmentFinder</h2>
                     <hr class="primary line-down">
-                    <p>Our goal is to make appointment management easier. With our tool you have the possibility to create new appointments easily and conveniently and then distribute them to users via voting. Appointment management has never been easier!</p>
+                    <p>Our goal is to make appointment management easier. With our tool you have the possibility to create new appointments with ease. Users can vote for valid appointments after the creation via the "Voting"-function. Appointment management has never been easier!</p>
                 
                 </div>
                 <div class="col-lg-4 col-lg-offset-2 text-center">
@@ -349,6 +354,31 @@
         </div>
     </section>
     <script>
+        function checkTime(i) {
+            if (i < 10) {
+            i = "0" + i;
+            }
+            return i;
+        }
+
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            // add a zero in front of numbers<10
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('date').innerHTML = today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
+            document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+            t = setTimeout(function() {
+                startTime()
+            }, 500);
+        }
+
+        startTime();
+
+
         jQuery(function($){
             $('#newExpirateDate').datetimepicker({
                 dateFormat: 'yy-mm-dd'
