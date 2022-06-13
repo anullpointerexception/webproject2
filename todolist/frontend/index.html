@@ -205,7 +205,7 @@
                                         <h5>Available Time Slots</h5>
                                     </label>
                                     <input type="text" class="form-control" name="newTimeSlotDate" id="newTimeSlotDate" aria-describedby="newDurationHelp" placeholder="Enter TimeSlot Day..." required> <br>
-                                    <a href="#" id="add-timeslot" class="btn btn-primary">Add Timeslot</a>
+                                    <a href="javascript:;" id="add-timeslot" class="btn btn-primary">Add Timeslot</a>
                                     <br>
                                     <br>
                                     <ol id="timeslots">
@@ -360,11 +360,7 @@
         });
         $(document).ready(function(){
             loadAppointments();
-            $('.appointmentCheckBox').click(function () {
-                var check = $('.filler').find('input[type=checkbox]:checked').length;
-                alert(check);
-                return false;
-            })
+            
             $(document).on('click','.createNewAppoint',function(){
                 $('#appointmentCreateNewModal').modal("show");
             });

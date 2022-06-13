@@ -218,7 +218,7 @@ function loadVoteDetails(id){
     });
 
 }
-function groupBy(list, keyGetter) {
+function groupBy(list, keyGetter) { // um die User zu den jeweiligen Terminen im Carousel zu gruppieren -> user mit der gleichen appointmentid werden in einem Carousel gruppiert. 
     const map = new Map();
     list.forEach((item) => {
          const key = keyGetter(item);
