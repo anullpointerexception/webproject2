@@ -26,9 +26,6 @@ class SimpleLogic
                 case "getAppointmentDetails_withUC":
                     $res=$this->dh->getAppointmentDetails_withUC($param);
                     break;
-                case "getAppointmentID":
-                    $res=$this->dh->getAppointmentID($param);
-                    break;
                 default:
                     $res = null;
                     break;

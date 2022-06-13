@@ -52,17 +52,39 @@ function calculateDuration(duration, time){
 }
 
 function addItem(){
+
+    var stringDate = $('#newTimeSlotDate').val();
+
+    var expirationString = $('#newExpirateDate').val();
+
+    var splitDate = stringDate.split(/[- :]/);
+
+    var splitExpirationDate = expirationString.split(/[- :]/);
+
+    var chosenAppDate = new Date(splitDate[0], splitDate[1], splitDate[2], splitDate[3], splitDate[4]);
+
+    var chosenExpirationDate = new Date(splitExpirationDate[0], splitExpirationDate[1], splitExpirationDate[2], splitExpirationDate[3], splitExpirationDate[4]);
+
    
     if($('#newTimeSlotDate').val().length === 0){
         alert("Please fill out the timeslot fields!");
+    } else if(chosenAppDate > chosenExpirationDate){ // Das Termindatum kann nicht nach dem Expiration Date sein.
+        alert("Date of Appointment can't be later than Expiration Date.")
     } else {
-        let chosenTimeSlot = $('#newTimeSlotDate').val();
+        let chosenTimeSlot = stringDate;
         chosenTimes.push(chosenTimeSlot);
         $('#timeslots').append("<li>" + chosenTimeSlot + "</li>");
         $("li:last-of-type").hide().slideDown();
-        $('#chosenHour').val("");
-        $('#chosenMin').val("");
     }
+}
+
+function removeItem() {
+    var text = $(this).closest('li').text();
+    const indexOfRemovalItem = chosenTimes.findIndex(object => {
+        return object === text;
+    });
+    $(this).remove();
+    chosenTimes.splice(indexOfRemovalItem, 1);
 }
 
 

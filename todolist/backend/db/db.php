@@ -17,9 +17,7 @@ class DbConnecter{
         if($this->mysqli === false){
             die("ERROR: Could not connect. " . $this->mysqli->connect_error);
         }
-
     }
-    
 }
 
 ?>
