@@ -75,13 +75,13 @@ class DataHandler
         }
 
         $stmt=$this->db->mysqli->prepare("INSERT INTO userchoice(terminid, name, comment) VALUES(?,?,?)");
-        $stmt->bind_param('iss', $data->appointment_choices_id, $data->name, $data->comment);
+        $stmt->bind_param('iss', $data->terminid, $data->name, $data->comment);
         
         $stmt->execute();
         if($stmt->error){ //return null on error f.e: appointmentid not in appointment table (foreign key cant reference)
             return null;
         }else{
-            return "success";
+            return "{\"msg\":\"success\"}";
         } 
     }
 

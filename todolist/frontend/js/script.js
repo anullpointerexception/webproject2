@@ -122,7 +122,7 @@ function addNewAppointment(){
                                 dataType: "json",
                                 data: JSON.stringify(timeSlotArray[x]),
                                 success: function(response){
-                                    console.log("success!");
+                                    alert("Appointment successfully created!");
                                 },
                                 error: function(error){
                                     console.log(error);
@@ -172,10 +172,12 @@ function loadVoteDetails(id){
                     const minutes = String(dateOfAppointment.getMinutes()).padStart(2, '0');
 
                     var endOfAppointment = calculateDuration(li["duration"], dateOfAppointment);
+
+                    console.log(li);
    
                     $('.list-group').append("<li class='list-group-item d-flex justify-content-between align-items-center'>\
                     <div class='form-check'>\
-                    <input class='form-check-input' name='appointment_choices_id' type='checkbox' value='"+li["id"]+"' id='flexCheckDefault'>\
+                    <input class='form-check-input' name='terminid' type='radio' value='"+li["id"]+"' id='flexCheckDefault'>\
                     <label class='form-check-label darkFont' for='flexCheckDefault'>\
                     <i class='fa-solid fa-clock'></i>\
                     "+ dateOfAppointment.getHours() + ":" + minutes + " - " + endOfAppointment + "</label>\
@@ -186,9 +188,29 @@ function loadVoteDetails(id){
                 })
                 $('#appointmentCreateModal').modal('show');
                 $('form').on('submit', function(){
-                    var obj = $('form').serializeJSON()
+                    var userChoice = $('form').serializeJSON();
 
-                    console.log(obj);
+                    delete userChoice["newTimeSlotDate"];
+                    delete userChoice["duration"];
+                    delete userChoice["expirationDate"];
+                    delete userChoice["location"];
+                    delete userChoice["title"];
+
+                    console.log(userChoice);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "../backend/serviceHandler.php?method=addUserChoice",
+                        cache: false,
+                        dataType: "json",
+                        data: JSON.stringify(userChoice),
+                        success: function(response){
+                            alert("Voting successful!");
+                        },
+                        error: function(error){
+                            console.log(error);
+                        }
+                    });
                             
                     return false;
                 });    
@@ -433,9 +455,10 @@ function loadAppointments(){
                         div.setAttribute("class", "calendar-widget-content");
                         div.setAttribute("id", "div" + appointments[item]["id"]);
 
+                        const minutes = String(expirationdate.getMinutes()).padStart(2, '0');
 
 
-                        div.innerHTML = "<br>Expires @ " + expirationdate.getDate() + "." +  expirationdate.getMonth() + "." + expirationdate.getFullYear() + " " + expirationdate.getHours() + ":" + expirationdate.getMinutes() + "<br><br>";
+                        div.innerHTML = "<br>Expires @ " + expirationdate.getDate() + "." +  expirationdate.getMonth() + "." + expirationdate.getFullYear() + " " + expirationdate.getHours() + ":" + minutes + "<br><br>";
 
                         var br = document.createElement("br");
                         var br2 = document.createElement("br");
@@ -506,8 +529,9 @@ function loadAppointments(){
                         div.setAttribute("class", "calendar-widget-content");
                         div.setAttribute("id", "div" + appointments[item]["id"]);
 
+                        const minutes = String(expirationdate.getMinutes()).padStart(2, '0');
 
-                        div.innerHTML = "<br>Expires @ " + expirationdate.getDate() + "." +  expirationdate.getMonth() + "." + expirationdate.getFullYear() + " " + expirationdate.getHours() + ":" + expirationdate.getMinutes() + "<br><br>";
+                        div.innerHTML = "<br>Expires @ " + expirationdate.getDate() + "." +  expirationdate.getMonth() + "." + expirationdate.getFullYear() + " " + expirationdate.getHours() + ":" + minutes + "<br><br>";
 
 
                         var br = document.createElement("br");
