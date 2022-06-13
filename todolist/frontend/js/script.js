@@ -123,6 +123,7 @@ function addNewAppointment(){
                                 data: JSON.stringify(timeSlotArray[x]),
                                 success: function(response){
                                     alert("Appointment successfully created!");
+                                    location.reload();
                                 },
                                 error: function(error){
                                     console.log(error);
@@ -206,6 +207,7 @@ function loadVoteDetails(id){
                         data: JSON.stringify(userChoice),
                         success: function(response){
                             alert("Voting successful!");
+                            location.reload();
                         },
                         error: function(error){
                             console.log(error);
